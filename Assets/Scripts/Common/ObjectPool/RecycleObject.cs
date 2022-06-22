@@ -11,4 +11,9 @@ public class RecycleObject : MonoBehaviour
     {
         this.restore = restore;
     }
+
+    protected void Restore()
+    {
+        restore(this);
+    }
 }
