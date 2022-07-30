@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        LoadScene("MainIsland", LoadSceneMode.Additive);
     }
 
     private void OnDestroy()
