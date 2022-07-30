@@ -11,7 +11,11 @@ public static class SceneLoadSystem
 
     private static void OnLoadedScene(Scene scene, LoadSceneMode loadSceneMode)
     {
+        // sceneLoaded 이벤트 실행 시점은 Awake()보다 느림
+        // SceneLoad는 최소 Start()에서 실행해주자
         SceneManager.sceneLoaded -= OnLoadedScene;
+        SceneManager.SetActiveScene(scene);
+
         // 로드가 완료 되면 할 행동
         isAbleToLoadScene = true;
     }
@@ -28,6 +32,7 @@ public static class SceneLoadSystem
         SceneManager.sceneLoaded += OnLoadedScene;
         var process = SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
         yield return new WaitUntil(() => process.isDone);
+        process.allowSceneActivation = true;
     }
 
     public static void LoadScene(string sceneName, LoadSceneMode loadSceneMode)
