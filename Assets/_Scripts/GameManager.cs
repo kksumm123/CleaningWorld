@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    [SerializeField] FactoryManager factoryManager;
 
     private void Awake()
     {
         Instance = this;
+        factoryManager.Initialize();
     }
 
     private void Start()
