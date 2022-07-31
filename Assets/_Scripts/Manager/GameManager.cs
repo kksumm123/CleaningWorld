@@ -7,11 +7,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] FactoryManager factoryManager;
+    [SerializeField] UIManager uiManager;
 
     private void Awake()
     {
         Instance = this;
         factoryManager.Initialize();
+        uiManager.Initialize();
     }
 
     private void Start()

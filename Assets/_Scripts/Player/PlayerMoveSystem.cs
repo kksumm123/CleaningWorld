@@ -15,6 +15,7 @@ public class PlayerMoveSystem
     public void Initialize(Player player)
     {
         this.player = player;
+        joystick = UIManager.Instance.Joystick;
     }
 
     public void Move()
@@ -29,6 +30,6 @@ public class PlayerMoveSystem
         direction.Normalize();
 
         moveResult = speed * Time.deltaTime * direction;
-        player.transform.Translate(moveResult);
+        player.transform.Translate(moveResult, Space.World);
     }
 }
