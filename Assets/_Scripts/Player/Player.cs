@@ -4,7 +4,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance;
     [SerializeField] PlayerMoveSystem playerMoveSystem = new PlayerMoveSystem();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    private void OnDestroy()
+    {
+        Instance = null;
+    }
 
     private void Start()
     {
