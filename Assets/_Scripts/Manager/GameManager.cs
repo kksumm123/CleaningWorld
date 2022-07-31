@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance;
     [SerializeField] FactoryManager factoryManager;
     [SerializeField] UIManager uiManager;
 
     private void Awake()
     {
-        Instance = this;
         factoryManager.Initialize();
         uiManager.Initialize();
     }
@@ -19,11 +17,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         LoadScene("MainIsland", LoadSceneMode.Additive);
-    }
-
-    private void OnDestroy()
-    {
-        Instance = null;
     }
 
     public void LoadScene(string sceneName, LoadSceneMode loadSceneMode)

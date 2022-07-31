@@ -2,20 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
-    public static Player Instance;
     [SerializeField] PlayerMoveSystem playerMoveSystem = new PlayerMoveSystem();
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-
-    private void OnDestroy()
-    {
-        Instance = null;
-    }
 
     private void Start()
     {
