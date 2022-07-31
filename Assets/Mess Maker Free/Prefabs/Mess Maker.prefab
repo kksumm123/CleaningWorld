@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd6852bcdd1f7147bfa71851bf9bb9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
   messMakerPoole: {fileID: 0}
   Number: 10
   Range: 10
