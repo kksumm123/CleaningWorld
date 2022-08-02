@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    string mainIslandSceneName = "MainIsland";
+
     [SerializeField] FactoryManager factoryManager;
     [SerializeField] UIManager uiManager;
 
@@ -16,7 +18,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        LoadScene("MainIsland", LoadSceneMode.Additive);
+        LoadScene(mainIslandSceneName, LoadSceneMode.Additive);
     }
 
     public void LoadScene(string sceneName, LoadSceneMode loadSceneMode)
