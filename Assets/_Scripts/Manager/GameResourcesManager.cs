@@ -10,4 +10,9 @@ public class GameResourcesManager : Singleton<GameResourcesManager>
     {
         gameResourcesSystem.Initialize();
     }
+
+    public GarbageObject GetGarbageObjectPrefab(GarbageType garbageType)
+    {
+        return gameResourcesSystem.GetGarbageObjectPrefab(garbageType);
+    }
 }

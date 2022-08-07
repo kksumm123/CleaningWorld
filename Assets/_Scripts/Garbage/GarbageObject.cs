@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GarbageObject : MonoBehaviour
+public class GarbageObject : RecycleObject
 {
     [SerializeField] GarbageType garbageType;
 }
