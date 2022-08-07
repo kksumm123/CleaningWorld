@@ -2,17 +2,17 @@
 {
     None,
 
-    Glass1,
-    Glass2,
-    Glass3,
+    Can1,
+    Can2,
+    Can3,
 
     Food1,
     Food2,
     Food3,
 
-    Can1,
-    Can2,
-    Can3,
+    Glass1,
+    Glass2,
+    Glass3,
 
     Paper1,
     Paper2,
