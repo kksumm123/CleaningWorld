@@ -7,13 +7,11 @@ public class GameManager : Singleton<GameManager>
 {
     string mainIslandSceneName = "MainIsland";
 
-    [SerializeField] FactoryManager factoryManager;
-    [SerializeField] UIManager uiManager;
-
     private void Awake()
     {
-        factoryManager.Initialize();
-        uiManager.Initialize();
+        GameResourcesManager.Instance.Initialize();
+        FactoryManager.Instance.Initialize();
+        UIManager.Instance.Initialize();
     }
 
     private void Start()
