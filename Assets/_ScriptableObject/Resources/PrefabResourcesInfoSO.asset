@@ -12,3 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6f358254f017d4ba461e1484af15ff, type: 3}
   m_Name: PrefabResourcesInfoSO
   m_EditorClassIdentifier: 
+  can1Prefab: {fileID: 651397528782242922, guid: cebd1c5db8fda4d4292ea4bb89a68bcd, type: 3}
+  can2Prefab: {fileID: 2153498574668049127, guid: 9824b6ddf3f0faf4ca4587d1e1571bcb, type: 3}
+  can3Prefab: {fileID: 2682806393823833886, guid: ae0150f933d7ff14a91d4ed5f3557e66, type: 3}
+  food1Prefab: {fileID: 4761032499612342662, guid: bd5ce47c4357f0c44a77fd2436dcf29a, type: 3}
+  food2Prefab: {fileID: 8357469579828700106, guid: 0c7382fb69f969b4bbea4f0a8751c14d, type: 3}
+  food3Prefab: {fileID: 8909895941266105773, guid: 744073cc429b6d245a86624fee4eb4d7, type: 3}
+  Glass1Prefab: {fileID: 3234207291522186242, guid: 07006b94a76e9f94fbe44ab1c9503670, type: 3}
+  Glass2Prefab: {fileID: 4780125921731812475, guid: e526283c3bae31c469cb7239086edde5, type: 3}
+  Glass3Prefab: {fileID: 2051977123274992557, guid: 8a25b7c2b4e66384daec151622433a5b, type: 3}
+  paper1Prefab: {fileID: 5330545051799074889, guid: 551afee5de54bc648a7c0ae299c775e3, type: 3}
+  paper2Prefab: {fileID: 6975722362654321227, guid: b96ec5cddf2b68942b3c92f180de0303, type: 3}
+  paper3Prefab: {fileID: 4940855926273727815, guid: 5978fc0043fa25b4899a589379604372, type: 3}
+  Platic1Prefab: {fileID: 4524019847672572734, guid: a17b71dd89c20de45a206e78a8cdf4d3, type: 3}
+  Platic2Prefab: {fileID: 2693964880413947223, guid: 9f40c18b8658c10498343f11e309e472, type: 3}
+  Platic3Prefab: {fileID: 6681466047707285374, guid: ce3bae0c9ccc3b247a1dec77281ff9de, type: 3}
