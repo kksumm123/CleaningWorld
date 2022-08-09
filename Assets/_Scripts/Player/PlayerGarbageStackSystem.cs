@@ -40,7 +40,7 @@ public class PlayerGarbageStackSystem
     MyStack<GarbageObject> myGarbages = new MyStack<GarbageObject>();
 
     [SerializeField] Transform pivotCenter;
-    [SerializeField] float garbageGap = 2.5f;
+    [SerializeField] float garbageGap = 0.5f;
 
     public void Initialize(Player player)
     {
@@ -50,9 +50,10 @@ public class PlayerGarbageStackSystem
 
     public void OnGarbageHeap(GarbageObject garbageObject)
     {
-        garbageObject.transform.SetParent(player.transform);
-        garbageObject.transform.localPosition = pivotCenter.position
-                                                + (myGarbages.Count() * garbageGap * Vector3.one);
+        garbageObject.transform.SetParent(pivotCenter);
+        garbageObject.transform.position = pivotCenter.position
+                                                + (myGarbages.Count() * garbageGap * Vector3.up);
+        garbageObject.transform.localRotation = Quaternion.identity;
         myGarbages.Push(garbageObject);
     }
 

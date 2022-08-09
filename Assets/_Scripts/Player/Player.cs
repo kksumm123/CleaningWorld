@@ -17,4 +17,9 @@ public class Player : Singleton<Player>
     {
         playerMoveSystem.Move();
     }
+
+    public void OnGarbageHeap(GarbageObject garbageObject)
+    {
+        playerGarbageStackSystem.OnGarbageHeap(garbageObject);
+    }
 }

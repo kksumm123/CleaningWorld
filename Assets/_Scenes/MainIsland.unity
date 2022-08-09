@@ -1994,9 +1994,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 9110540158517202578, guid: e0b80df8e03f6e241ba4ba777f434e7b, type: 3}
-      propertyPath: playerGarbageStackSystem.pivotCenter
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0b80df8e03f6e241ba4ba777f434e7b, type: 3}
