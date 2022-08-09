@@ -9,5 +9,6 @@ public class CinemachineController : MonoBehaviour
     private void Start()
     {
         playerFollower.SetParent(Player.Instance.transform);
+        playerFollower.localPosition = Vector3.zero;
     }
 }
