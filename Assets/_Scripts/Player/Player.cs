@@ -18,6 +18,11 @@ public class Player : Singleton<Player>
         playerMoveSystem.Move();
     }
 
+    public bool IsAbleToGetGarbage()
+    {
+        return playerGarbageStackSystem.IsAbleToGetGarbage();
+    }
+
     public void OnGarbageHeap(GarbageObject garbageObject)
     {
         playerGarbageStackSystem.OnGarbageHeap(garbageObject);

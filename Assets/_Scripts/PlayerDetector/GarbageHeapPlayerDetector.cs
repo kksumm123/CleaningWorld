@@ -16,6 +16,11 @@ public class GarbageHeapPlayerDetector : PlayerDetector
 
     protected override void _OnTriggerEnter(Collider other)
     {
+        if (other.GetComponent<Player>().IsAbleToGetGarbage() == false)
+        {
+            return;
+        }
+
         GarbageType randomeType = (GarbageType)Random.Range(1, garbageTypesMaxNumber);
 
         var randomGarbage = FactoryManager.Instance
