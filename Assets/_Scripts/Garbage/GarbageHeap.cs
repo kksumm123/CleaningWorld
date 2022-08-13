@@ -15,10 +15,15 @@ public class GarbageHeap : MonoBehaviour
     int originGarbageCount;
     Vector3 originScale;
 
+    class 일반클래스
+    {
+        public static void 힝잉잉() { }
+    }
+
     void Start()
     {
-        Debug.Assert(garbageHeapPlayerDetector != null,
-                     "garbageHeapPlayerDetector is null");
+        WoonyMethods.Assert(this, (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)),
+                                  (inner, nameof(inner)));
 
         var garbageTypes = Enum.GetNames(typeof(GarbageType));
         garbageTypesMaxNumber = garbageTypes.Length;
