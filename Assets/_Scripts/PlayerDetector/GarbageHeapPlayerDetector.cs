@@ -2,32 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class GarbageHeapPlayerDetector : PlayerDetector
 {
-    int garbageTypesMaxNumber;
+    Action onPlayerEnter;
+    Action onPlayerExit;
 
-    protected override void OnStart()
+    protected override void OnStart() { }
+
+    public void Initialize(Action onPlayerEnter, Action onPlayerExit)
     {
-        var garbageTypes = Enum.GetNames(typeof(GarbageType));
-        garbageTypesMaxNumber = garbageTypes.Length;
+        this.onPlayerEnter = onPlayerEnter;
+        this.onPlayerExit = onPlayerExit;
     }
 
     protected override void _OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Player>().IsAbleToGetGarbage() == false)
-        {
-            return;
-        }
-
-        GarbageType randomeType = (GarbageType)Random.Range(1, garbageTypesMaxNumber);
-
-        var randomGarbage = FactoryManager.Instance
-                                          .GetGarbageObject(randomeType,
-                                                            transform.position);
-        other.GetComponent<Player>().OnGarbageHeap(randomGarbage);
+        onPlayerEnter();
     }
 
-    protected override void _OnTriggerExit(Collider other) { }
+    protected override void _OnTriggerExit(Collider other)
+    {
+        onPlayerExit();
+    }
 }

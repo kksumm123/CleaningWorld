@@ -1196,6 +1196,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ecc409974551a646a6fab36544dea86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  garbageHeapPlayerDetector: {fileID: 2028741039049007520}
+  delay: 0.5
 --- !u!1 &2255055990886415723
 GameObject:
   m_ObjectHideFlags: 0
