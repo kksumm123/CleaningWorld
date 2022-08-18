@@ -27,10 +27,10 @@ class GarbageStack<T> where T : GarbageObject
         container.Add(item);
     }
 
-    public (bool isContained, T garbageObject) Pop(GarbageType garbageType)
+    public (bool isContained, T garbageObject) Pop(GarbageDetailType garbageType)
     {
-        tempItem = container.FirstOrDefault(x => x.GarbageType == garbageType);
-        if (tempItem.GarbageType == GarbageType.None)
+        tempItem = container.FirstOrDefault(x => x.GarbageDetailType == garbageType);
+        if (tempItem.GarbageDetailType == GarbageDetailType.None)
         {
             Debug.LogError("존재하지 않음");
             return (false, null);
@@ -44,6 +44,12 @@ class GarbageStack<T> where T : GarbageObject
 [System.Serializable]
 public class PlayerGarbageStackSystem
 {
+    class GarbageCountInfo
+    {
+        public GarbageType garbageType;
+        public int count;
+    }
+
     Player player;
     GarbageStack<GarbageObject> myGarbages = new GarbageStack<GarbageObject>();
 
@@ -52,10 +58,78 @@ public class PlayerGarbageStackSystem
     [SerializeField] float garbageGap = 1f;
     [SerializeField] int orderCount = 7;
 
+    Dictionary<GarbageType, GarbageCountInfo> garbageCountInfoMap = new Dictionary<GarbageType, GarbageCountInfo>();
+
     public void Initialize(Player player)
     {
         this.player = player;
         Debug.Assert(pivotCenter != null, "pivotCenter is null");
+    }
+
+    GarbageType GetGarbageTypeFromDetailType(GarbageDetailType garbageDetailType)
+    {
+        switch (garbageDetailType)
+        {
+            case GarbageDetailType.Can1:
+            case GarbageDetailType.Can2:
+            case GarbageDetailType.Can3:
+                return GarbageType.Can;
+            case GarbageDetailType.Food1:
+            case GarbageDetailType.Food2:
+            case GarbageDetailType.Food3:
+                return GarbageType.Food;
+            case GarbageDetailType.Glass1:
+            case GarbageDetailType.Glass2:
+            case GarbageDetailType.Glass3:
+                return GarbageType.Glass;
+            case GarbageDetailType.Paper1:
+            case GarbageDetailType.Paper2:
+            case GarbageDetailType.Paper3:
+                return GarbageType.Paper;
+            case GarbageDetailType.Plastic1:
+            case GarbageDetailType.Plastic2:
+            case GarbageDetailType.Plastic3:
+                return GarbageType.Plastic;
+            default:
+                return GarbageType.None;
+        }
+    }
+
+    GarbageCountInfo GetGarbageCountInfo(GarbageType garbageType)
+    {
+        if (garbageCountInfoMap.ContainsKey(garbageType) == false)
+        {
+            InitializeGarbageCountMap(garbageType);
+        }
+
+        return garbageCountInfoMap[garbageType];
+
+        void InitializeGarbageCountMap(GarbageType garbageType)
+        {
+            garbageCountInfoMap[garbageType] = new GarbageCountInfo()
+            {
+                garbageType = garbageType,
+                count = 0,
+            };
+        }
+    }
+
+    void UpdateCount(GarbageDetailType garbageDetailType, int changeValue)
+    {
+        var garbageType = GetGarbageTypeFromDetailType(garbageDetailType);
+        var garbageInfo = GetGarbageCountInfo(garbageType);
+        garbageInfo.count += changeValue;
+        UIManager.Instance.UpdateGarbageAmount(garbageType, garbageInfo.count);
+    }
+
+    void IncreaseCount(GarbageDetailType garbageDetailType)
+    {
+        UpdateCount(garbageDetailType, +1);
+    }
+
+    void DecreaseCount(GarbageDetailType garbageDetailType)
+    {
+        UpdateCount(garbageDetailType, -1);
     }
 
     public bool IsAbleToGetGarbage()
@@ -69,6 +143,7 @@ public class PlayerGarbageStackSystem
         garbageObject.transform.localRotation = Quaternion.identity;
 
         myGarbages.Push(garbageObject, GetPosition, duration);
+        IncreaseCount(garbageDetailType: garbageObject.GarbageDetailType);
 
         Vector3 GetPosition(int index)
         {
@@ -78,7 +153,7 @@ public class PlayerGarbageStackSystem
         }
     }
 
-    public (bool isContained, GarbageObject garbageObject) OnTrashBins(GarbageType garbageType)
+    public (bool isContained, GarbageObject garbageObject) OnTrashBins(GarbageDetailType garbageType)
     {
         return myGarbages.Pop(garbageType);
     }

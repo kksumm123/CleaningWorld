@@ -1,18 +1,33 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GarbageUIBox : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Image iconImage;
+    [SerializeField] TextMeshProUGUI amount;
+
+    public void Initialize(Sprite iconSprite)
     {
-        
+        WoonyMethods.Assert(this, (iconSprite, nameof(iconSprite)),
+                                  (iconImage, nameof(iconImage)),
+                                  (amount, nameof(amount)));
+        this.iconImage.sprite = iconSprite;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateAmount(int value)
     {
-        
+        amount.text = value.ToString();
+
+        if (value == 0)
+        {
+            gameObject.SetActive(false);
+        }
+        else if (gameObject.activeSelf == false)
+        {
+            gameObject.SetActive(true);
+        }
     }
 }

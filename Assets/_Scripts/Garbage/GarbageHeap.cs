@@ -25,7 +25,7 @@ public class GarbageHeap : MonoBehaviour
         WoonyMethods.Assert(this, (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)),
                                   (inner, nameof(inner)));
 
-        var garbageTypes = Enum.GetNames(typeof(GarbageType));
+        var garbageTypes = Enum.GetNames(typeof(GarbageDetailType));
         garbageTypesMaxNumber = garbageTypes.Length;
 
         garbageHeapPlayerDetector.Initialize(OnPlayerEnter, OnPlayerExit);
@@ -77,12 +77,12 @@ public class GarbageHeap : MonoBehaviour
 
     private bool IsAbleToGenerateGarbage()
     {
-        return garbageCount <= 0;
+        return garbageCount > 0;
     }
 
     GarbageObject GenerateGarbage()
     {
-        GarbageType randomeType = (GarbageType)Random.Range(1, garbageTypesMaxNumber);
+        GarbageDetailType randomeType = (GarbageDetailType)Random.Range(1, garbageTypesMaxNumber);
 
         var randomGarbage = FactoryManager.Instance
                                           .GetGarbageObject(randomeType,

@@ -11,8 +11,13 @@ public class GameResourcesManager : Singleton<GameResourcesManager>
         gameResourcesSystem.Initialize();
     }
 
-    public GarbageObject GetGarbageObjectPrefab(GarbageType garbageType)
+    public GarbageObject GetGarbageObjectPrefab(GarbageDetailType garbageType)
     {
         return gameResourcesSystem.GetGarbageObjectPrefab(garbageType);
+    }
+
+    public Sprite GetIcon(IconType iconType)
+    {
+        return gameResourcesSystem.GetIcon(iconType);
     }
 }

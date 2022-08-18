@@ -21,39 +21,39 @@ public class PrefabResourcesInfoSO : ScriptableObject
     [SerializeField] GarbageObject Platic2Prefab;
     [SerializeField] GarbageObject Platic3Prefab;
 
-    public GarbageObject GetGarbageObjectPrefab(GarbageType garbageType)
+    public GarbageObject GetGarbageObjectPrefab(GarbageDetailType garbageType)
     {
         switch (garbageType)
         {
-            case GarbageType.Can1:
+            case GarbageDetailType.Can1:
                 return can1Prefab;
-            case GarbageType.Can2:
+            case GarbageDetailType.Can2:
                 return can2Prefab;
-            case GarbageType.Can3:
+            case GarbageDetailType.Can3:
                 return can3Prefab;
-            case GarbageType.Food1:
+            case GarbageDetailType.Food1:
                 return food1Prefab;
-            case GarbageType.Food2:
+            case GarbageDetailType.Food2:
                 return food2Prefab;
-            case GarbageType.Food3:
+            case GarbageDetailType.Food3:
                 return food3Prefab;
-            case GarbageType.Glass1:
+            case GarbageDetailType.Glass1:
                 return Glass1Prefab;
-            case GarbageType.Glass2:
+            case GarbageDetailType.Glass2:
                 return Glass2Prefab;
-            case GarbageType.Glass3:
+            case GarbageDetailType.Glass3:
                 return Glass3Prefab;
-            case GarbageType.Paper1:
+            case GarbageDetailType.Paper1:
                 return paper1Prefab;
-            case GarbageType.Paper2:
+            case GarbageDetailType.Paper2:
                 return paper2Prefab;
-            case GarbageType.Paper3:
+            case GarbageDetailType.Paper3:
                 return paper3Prefab;
-            case GarbageType.Plastic1:
+            case GarbageDetailType.Plastic1:
                 return Platic1Prefab;
-            case GarbageType.Plastic2:
+            case GarbageDetailType.Plastic2:
                 return Platic2Prefab;
-            case GarbageType.Plastic3:
+            case GarbageDetailType.Plastic3:
                 return Platic3Prefab;
             default:
                 Debug.Log($"PrefabResourcesInfoSO : 이게 호출되면 안됨, garbageType = {garbageType}");
