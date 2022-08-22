@@ -15,11 +15,6 @@ public class GarbageHeap : MonoBehaviour
     int originGarbageCount;
     Vector3 originScale;
 
-    class 일반클래스
-    {
-        public static void 힝잉잉() { }
-    }
-
     void Start()
     {
         WoonyMethods.Assert(this, (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)),
