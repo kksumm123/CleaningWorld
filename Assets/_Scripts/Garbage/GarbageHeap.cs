@@ -8,6 +8,7 @@ public class GarbageHeap : MonoBehaviour
 {
     int garbageTypesMaxNumber;
     [SerializeField] GarbageHeapPlayerDetector garbageHeapPlayerDetector;
+    [SerializeField] GarbageAmountBox garbageAmountBox;
     [SerializeField] float delay = 0.5f;
 
     [SerializeField] Transform inner;
@@ -18,15 +19,25 @@ public class GarbageHeap : MonoBehaviour
     void Start()
     {
         WoonyMethods.Assert(this, (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)),
+                                  (garbageAmountBox, nameof(garbageAmountBox)),
                                   (inner, nameof(inner)));
 
         var garbageTypes = Enum.GetNames(typeof(GarbageDetailType));
         garbageTypesMaxNumber = garbageTypes.Length;
 
         garbageHeapPlayerDetector.Initialize(OnPlayerEnter, OnPlayerExit);
+        garbageAmountBox.Initialize();
+        garbageAmountBox.UpdateAmount(garbageCount);
 
         originGarbageCount = garbageCount;
         originScale = inner.localScale;
+    }
+
+    void SubGarbageCount(int value)
+    {
+        value = Math.Abs(value);
+        garbageCount -= value;
+        garbageAmountBox.UpdateAmount(garbageCount);
     }
 
     void OnPlayerEnter()
@@ -88,7 +99,7 @@ public class GarbageHeap : MonoBehaviour
 
         void OnGenerateGarbage()
         {
-            garbageCount--;
+            SubGarbageCount(1);
             inner.localScale = garbageCount / (float)originGarbageCount * originScale;
         }
     }

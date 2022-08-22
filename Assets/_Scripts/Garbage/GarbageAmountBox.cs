@@ -15,19 +15,31 @@ public class GarbageAmountBox : MonoBehaviour
         Disappear();
     }
 
+    private void Appear()
+    {
+        canvasGroup.alpha = 1;
+    }
+
     private void Disappear()
     {
         canvasGroup.alpha = 0;
     }
 
-    public void UpdateAmount(int amount)
+    void OnUpdateAmount(int amount)
     {
         if (amount <= 0)
         {
             Disappear();
-            return;
         }
+        else
+        {
+            Appear();
+        }
+    }
 
+    public void UpdateAmount(int amount)
+    {
+        OnUpdateAmount(amount);
         count.text = $"x{amount}";
     }
 }
