@@ -5,6 +5,6 @@ using UnityEngine;
 public class GarbageObject : RecycleObject
 {
     public GarbageDetailType GarbageDetailType => garbageDetailType;
-
+    
     [SerializeField] GarbageDetailType garbageDetailType;
 }

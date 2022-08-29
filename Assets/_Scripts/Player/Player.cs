@@ -27,4 +27,9 @@ public class Player : Singleton<Player>
     {
         playerGarbageStackSystem.OnGarbageHeap(garbageObject, duration);
     }
+
+    public void OnWastebasket(GarbageType garbageType)
+    {
+        playerGarbageStackSystem.OnWastebasket(garbageType);
+    }
 }
