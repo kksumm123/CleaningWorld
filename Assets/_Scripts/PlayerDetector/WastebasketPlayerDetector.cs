@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class WastebasketPlayerDetector : PlayerDetector
 {
-    [SerializeField] Collider mainCollider;
     Action onPlayerEnter;
     Action onPlayerExit;
 
