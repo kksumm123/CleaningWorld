@@ -67,35 +67,6 @@ public class PlayerGarbageStackSystem
         Debug.Assert(pivotCenter != null, "pivotCenter is null");
     }
 
-    GarbageType GetGarbageTypeFromDetailType(GarbageDetailType garbageDetailType)
-    {
-        switch (garbageDetailType)
-        {
-            case GarbageDetailType.Can1:
-            case GarbageDetailType.Can2:
-            case GarbageDetailType.Can3:
-                return GarbageType.Can;
-            case GarbageDetailType.Food1:
-            case GarbageDetailType.Food2:
-            case GarbageDetailType.Food3:
-                return GarbageType.Food;
-            case GarbageDetailType.Glass1:
-            case GarbageDetailType.Glass2:
-            case GarbageDetailType.Glass3:
-                return GarbageType.Glass;
-            case GarbageDetailType.Paper1:
-            case GarbageDetailType.Paper2:
-            case GarbageDetailType.Paper3:
-                return GarbageType.Paper;
-            case GarbageDetailType.Plastic1:
-            case GarbageDetailType.Plastic2:
-            case GarbageDetailType.Plastic3:
-                return GarbageType.Plastic;
-            default:
-                return GarbageType.None;
-        }
-    }
-
     GarbageCountInfo GetGarbageCountInfo(GarbageType garbageType)
     {
         if (garbageCountInfoMap.ContainsKey(garbageType) == false)
@@ -115,22 +86,21 @@ public class PlayerGarbageStackSystem
         }
     }
 
-    void UpdateCount(GarbageDetailType garbageDetailType, int changeValue)
+    void UpdateCount(GarbageType garbageType, int changeValue)
     {
-        var garbageType = GetGarbageTypeFromDetailType(garbageDetailType);
         var garbageInfo = GetGarbageCountInfo(garbageType);
         garbageInfo.count += changeValue;
         UIManager.Instance.UpdateGarbageAmount(garbageType, garbageInfo.count);
     }
 
-    void IncreaseCount(GarbageDetailType garbageDetailType)
+    void IncreaseCount(GarbageType garbageType)
     {
-        UpdateCount(garbageDetailType, +1);
+        UpdateCount(garbageType, +1);
     }
 
-    void DecreaseCount(GarbageDetailType garbageDetailType)
+    void DecreaseCount(GarbageType garbageType)
     {
-        UpdateCount(garbageDetailType, -1);
+        UpdateCount(garbageType, -1);
     }
 
     public bool IsAbleToGetGarbage()
@@ -144,7 +114,7 @@ public class PlayerGarbageStackSystem
         garbageObject.transform.localRotation = Quaternion.identity;
 
         myGarbages.Push(garbageObject, GetPosition, duration);
-        IncreaseCount(garbageDetailType: garbageObject.GarbageDetailType);
+        IncreaseCount(garbageType: garbageObject.GarbageType);
 
         Vector3 GetPosition(int index)
         {
@@ -157,5 +127,6 @@ public class PlayerGarbageStackSystem
     public void OnWastebasket(GarbageType garbageType)
     {
         myGarbages.Pop(garbageType);
+        DecreaseCount(garbageType);
     }
 }
