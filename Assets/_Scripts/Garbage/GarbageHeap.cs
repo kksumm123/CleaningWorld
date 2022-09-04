@@ -43,14 +43,14 @@ public class GarbageHeap : MonoBehaviour
     void OnPlayerEnter()
     {
         StopGenerateGarbageCo();
-        GetGeneratebageCoHandle = StartCoroutine(GenerateGarbageCo());
+        getGeneratebageCoHandle = StartCoroutine(GenerateGarbageCo());
     }
 
     void StopGenerateGarbageCo()
     {
-        if (GetGeneratebageCoHandle != null)
+        if (getGeneratebageCoHandle != null)
         {
-            StopCoroutine(GetGeneratebageCoHandle);
+            StopCoroutine(getGeneratebageCoHandle);
         }
     }
 
@@ -59,7 +59,7 @@ public class GarbageHeap : MonoBehaviour
         StopGenerateGarbageCo();
     }
 
-    Coroutine GetGeneratebageCoHandle;
+    Coroutine getGeneratebageCoHandle;
     IEnumerator GenerateGarbageCo()
     {
         var isTrue = true;
