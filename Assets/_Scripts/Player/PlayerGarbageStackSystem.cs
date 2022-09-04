@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -98,7 +99,50 @@ public class PlayerGarbageStackSystem
         if (result.isContained)
         {
             result.garbageObject.transform.parent = null;
+            DecreaseCount(garbageType);
         }
-        DecreaseCount(garbageType);
+    }
+}
+
+
+class AreTheySame
+{
+    public static bool comp(int[] a, int[] b)
+    {
+        // your code
+        if (a == null || b == null)
+        {
+            return false;
+        }
+        else if (a.Length != b.Length)
+        {
+            return false;
+        }
+        var aList = a.ToList();
+        var bList = b.ToList();
+
+        for (int i = 0; i < aList.Count; i++)
+        {
+            if (IsExit(bList, Math.Pow(aList[i], 2)) == false)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    static bool IsExit(List<int> bList, double squaredValue)
+    {
+        for (int i = 0; i < bList.Count; i++)
+        {
+            if (bList[i] == squaredValue)
+            {
+                bList.RemoveAt(i);
+                return true;
+            }
+        }
+
+        return false;
     }
 }
