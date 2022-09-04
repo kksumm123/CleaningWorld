@@ -33,11 +33,13 @@ public class Player : Singleton<Player>
         playerGarbageStackSystem.OnGarbageHeap(garbageObject, duration);
     }
 
-    public void OnWastebasket(GarbageType garbageType)
+    public (bool isContained, GarbageObject garbageObject) OnWastebasket(GarbageType garbageType)
     {
-        if (playerGarbageStackSystem.IsAbleToPopGarbage(garbageType))
+        if (playerGarbageStackSystem.IsAbleToPopGarbage(garbageType) == false)
         {
-            playerGarbageStackSystem.OnWastebasket(garbageType);
+            return (false, null);
         }
+
+        return playerGarbageStackSystem.OnWastebasket(garbageType);
     }
 }

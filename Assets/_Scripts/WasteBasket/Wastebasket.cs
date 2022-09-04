@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,8 +42,10 @@ public class Wastebasket : MonoBehaviour
         var isTrue = true;
         while (isTrue && Player.Instance.IsAbleToPopGarbage(garbageType))
         {
-            Player.Instance.OnWastebasket(garbageType);
-            yield return new WaitForSeconds(delay);
+            var result = Player.Instance.OnWastebasket(garbageType);
+            
+            yield return result.garbageObject.transform.DOMove(transform.position, delay)
+                                                       .WaitForCompletion();
         }
     }
 }

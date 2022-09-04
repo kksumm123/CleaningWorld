@@ -93,7 +93,7 @@ public class PlayerGarbageStackSystem
         IncreaseCount(garbageType: garbageObject.GarbageType);
     }
 
-    public void OnWastebasket(GarbageType garbageType)
+    public (bool isContained, GarbageObject garbageObject) OnWastebasket(GarbageType garbageType)
     {
         var result = myGarbages.Pop(garbageType);
         if (result.isContained)
@@ -101,6 +101,8 @@ public class PlayerGarbageStackSystem
             result.garbageObject.transform.parent = null;
             DecreaseCount(garbageType);
         }
+
+        return result;
     }
 }
 
