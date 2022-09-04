@@ -6,6 +6,7 @@ public class Wastebasket : MonoBehaviour
 {
     [SerializeField] GarbageType garbageType;
     [SerializeField] WastebasketPlayerDetector wastebasketPlayerDetector;
+    [SerializeField] float delay = 0.15f;
 
     void Start()
     {
@@ -17,11 +18,31 @@ public class Wastebasket : MonoBehaviour
 
     void OnPlayerEnter()
     {
-        Player.Instance.OnWastebasket(garbageType);
+        StopCo();
+        onPlayerEnterCoHandle = StartCoroutine(OnPlayerEnterCo());
     }
 
     void OnPlayerExist()
     {
+        StopCo();
+    }
 
+    void StopCo()
+    {
+        if (onPlayerEnterCoHandle != null)
+        {
+            StopCoroutine(onPlayerEnterCoHandle);
+        }
+    }
+
+    Coroutine onPlayerEnterCoHandle;
+    IEnumerator OnPlayerEnterCo()
+    {
+        var isTrue = true;
+        while (isTrue && Player.Instance.IsAbleToPopGarbage(garbageType))
+        {
+            Player.Instance.OnWastebasket(garbageType);
+            yield return new WaitForSeconds(delay);
+        }
     }
 }

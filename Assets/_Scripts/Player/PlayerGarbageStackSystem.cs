@@ -94,7 +94,11 @@ public class PlayerGarbageStackSystem
 
     public void OnWastebasket(GarbageType garbageType)
     {
-        myGarbages.Pop(garbageType);
+        var result = myGarbages.Pop(garbageType);
+        if (result.isContained)
+        {
+            result.garbageObject.transform.parent = null;
+        }
         DecreaseCount(garbageType);
     }
 }

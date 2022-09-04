@@ -57,7 +57,7 @@ class GarbageStack<T> where T : GarbageObject
 
         container.Remove(tempItem);
         containerMap[tempItem.GarbageType]--;
-        tempItem.transform.SetParent(null);
+        //tempItem.transform.SetParent(null);
         UpdateGarbagePosition();
 
         return (true, tempItem);
