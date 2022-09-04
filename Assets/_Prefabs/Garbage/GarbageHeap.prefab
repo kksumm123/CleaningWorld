@@ -1341,7 +1341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   garbageHeapPlayerDetector: {fileID: 4754893247351265786}
   garbageAmountBox: {fileID: 6914999983603263001}
-  delay: 0.5
+  delay: 0.15
   inner: {fileID: 549905598615026843}
   garbageCount: 100
 --- !u!1 &2255055990886415723
@@ -1935,11 +1935,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2469605536766790892, guid: f85ba09639af45e40be1cdcab45b9984, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 3e-45
+      value: -1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 2469605536766790892, guid: f85ba09639af45e40be1cdcab45b9984, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1e-45
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2469605536766790892, guid: f85ba09639af45e40be1cdcab45b9984, type: 3}
       propertyPath: m_AnchoredPosition.x

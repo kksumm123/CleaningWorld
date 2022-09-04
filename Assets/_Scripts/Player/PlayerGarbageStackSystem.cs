@@ -26,6 +26,15 @@ public class PlayerGarbageStackSystem
     {
         this.player = player;
         Debug.Assert(pivotCenter != null, "pivotCenter is null");
+
+        myGarbages.Initialize(GetPosition);
+    }
+
+    Vector3 GetPosition(int index)
+    {
+        return Vector3.zero
+               + (index % orderCount * garbageGap * Vector3.up)
+               + (index / orderCount * garbageGap * Vector3.back);
     }
 
     GarbageCountInfo GetGarbageCountInfo(GarbageType garbageType)
@@ -79,15 +88,8 @@ public class PlayerGarbageStackSystem
         garbageObject.transform.SetParent(pivotCenter);
         garbageObject.transform.localRotation = Quaternion.identity;
 
-        myGarbages.Push(garbageObject, GetPosition, duration);
+        myGarbages.Push(garbageObject, duration);
         IncreaseCount(garbageType: garbageObject.GarbageType);
-
-        Vector3 GetPosition(int index)
-        {
-            return Vector3.zero
-                   + (index % orderCount * garbageGap * Vector3.up)
-                   + (index / orderCount * garbageGap * Vector3.back);
-        }
     }
 
     public void OnWastebasket(GarbageType garbageType)

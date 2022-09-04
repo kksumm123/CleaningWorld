@@ -10,18 +10,29 @@ class GarbageStack<T> where T : GarbageObject
     readonly List<T> container = new List<T>();
     T tempItem;
     Dictionary<GarbageType, int> containerMap = new Dictionary<GarbageType, int>();
+    Func<int, Vector3> getPosition;
+
+    public void Initialize(Func<int, Vector3> getPosition)
+    {
+        this.getPosition = getPosition;
+    }
+
+    void UpdateGarbagePosition()
+    {
+        for (int i = 0; i < container.Count; i++)
+        {
+            container[i].transform.localPosition = getPosition(i);
+        }
+    }
 
     public int Count()
     {
         return container.Count();
     }
 
-    public void Push(T garbageObject, Func<int, Vector3> getPosition, float duration)
+    public void Push(T garbageObject, float duration)
     {
-        for (int i = 0; i < container.Count; i++)
-        {
-            container[i].transform.localPosition = getPosition(i);
-        }
+        UpdateGarbagePosition();
 
         garbageObject.transform.DOLocalMove(getPosition(container.Count), duration);
 
@@ -46,6 +57,9 @@ class GarbageStack<T> where T : GarbageObject
 
         container.Remove(tempItem);
         containerMap[tempItem.GarbageType]--;
+        tempItem.transform.SetParent(null);
+        UpdateGarbagePosition();
+
         return (true, tempItem);
     }
 
