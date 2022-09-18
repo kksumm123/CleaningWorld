@@ -36,7 +36,7 @@ public class ObjectPoolSystem
             objectPool.Add(tempObject);
         }
     }
-     
+
     public RecycleObject Get()
     {
         if (objectPool.Count <= 0)
@@ -52,7 +52,11 @@ public class ObjectPoolSystem
 
     public void Restore(RecycleObject recycleObject)
     {
+        if (objectPool.Contains(recycleObject)) return;
+
         recycleObject.gameObject.SetActive(false);
+        recycleObject.transform.localScale = Vector3.one;
+        recycleObject.transform.SetParent(parent);
         objectPool.Add(recycleObject);
     }
 }
