@@ -1,5 +1,105 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &4327461315155386130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3905513122648542909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ae49c5d1504a6e4482811774799d562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lid: {fileID: 4371590515310737765}
+  lidOpenInfo:
+    rotation: {x: 0, y: 105, z: -90}
+    duration: 0.2
+  lidCloseInfo:
+    rotation: {x: 0, y: 0, z: -90}
+    duration: 1
+--- !u!1 &830987948593556550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4371590515310737765}
+  - component: {fileID: 3587385410423328997}
+  - component: {fileID: 4643042237742916649}
+  m_Layer: 0
+  m_Name: TrashbinLid (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4371590515310737765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830987948593556550}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6896521399733585318}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!33 &3587385410423328997
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830987948593556550}
+  m_Mesh: {fileID: 796161655140767721, guid: b08ef7d6178f62742af62250667c0dff, type: 3}
+--- !u!23 &4643042237742916649
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830987948593556550}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: f757761b25d2e134c8fc70ba2a38c992, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &715655921205741095
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55,9 +155,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashbinBlue
       objectReference: {fileID: 0}
+    - target: {fileID: 6222805804272026497, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222805804272026497, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222805804272026497, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222805804272026497, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9032054342236209768, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
+    - {fileID: 28709358230346393, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
+    - {fileID: 550025104704863731, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
+    - {fileID: 1567657069519431601, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
+--- !u!1 &3905513122648542909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4602025962161850522, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
+  m_PrefabInstance: {fileID: 715655921205741095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6896521399733585318 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6222805804272026497, guid: 3773d0ae256dc594ea12defa93a67c26, type: 3}
+  m_PrefabInstance: {fileID: 715655921205741095}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3009769182021841661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66,9 +195,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1382012427102122280, guid: b3cd8beb745f17d49a42e27dce94ceba, type: 3}
+      propertyPath: lid
+      value: 
+      objectReference: {fileID: 6896521399733585318}
+    - target: {fileID: 1382012427102122280, guid: b3cd8beb745f17d49a42e27dce94ceba, type: 3}
       propertyPath: garbageType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1382012427102122280, guid: b3cd8beb745f17d49a42e27dce94ceba, type: 3}
+      propertyPath: lidController
+      value: 
+      objectReference: {fileID: 4327461315155386130}
     - target: {fileID: 1382012427102122281, guid: b3cd8beb745f17d49a42e27dce94ceba, type: 3}
       propertyPath: m_RootOrder
       value: 0
