@@ -8,12 +8,15 @@ public class Wastebasket : MonoBehaviour
     [SerializeField] GarbageType garbageType;
     [SerializeField] WastebasketPlayerDetector wastebasketPlayerDetector;
     [SerializeField] WastebasketLidController lidController;
+    [SerializeField] Transform garbageArrivedPoint;
+    [SerializeField] float addedYValue = 2;
     [SerializeField] float delay = 0.15f;
 
     void Start()
     {
         WoonyMethods.Assert(this, (wastebasketPlayerDetector, nameof(wastebasketPlayerDetector)),
-                                  (lidController, nameof(lidController)));
+                                  (lidController, nameof(lidController)),
+                                  (garbageArrivedPoint, nameof(garbageArrivedPoint)));
         Debug.Assert(garbageType != GarbageType.None, "타입 설정이 필요함", transform);
 
         wastebasketPlayerDetector.Initialize(OnPlayerEnter, OnPlayerExist);
@@ -49,10 +52,12 @@ public class Wastebasket : MonoBehaviour
         var isTrue = true;
         while (isTrue && Player.Instance.IsAbleToPopGarbage(garbageType))
         {
-            var result = Player.Instance.OnWastebasket(garbageType);
+            (bool isContained, GarbageObject garbageObject) = Player.Instance.OnWastebasket(garbageType);
 
-            yield return result.garbageObject.transform.DOMove(transform.position, delay)
-                                                               .WaitForCompletion();
+            yield return garbageObject.OnWastebasket(garbageArrivedPoint.position,
+                                                     addedYValue,
+                                                     delay)
+                                      .WaitForCompletion();
         }
     }
 }
