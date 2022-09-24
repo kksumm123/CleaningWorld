@@ -11,8 +11,13 @@ public class FactoryManager : Singleton<FactoryManager>
         prefabFactorySystem.Initialize(transform);
     }
 
-    public GarbageObject GetGarbageObject(GarbageDetailType garbageType, Vector3 spawnPoint)
+    public GarbageObject GetGarbageObject(GarbageDetailType garbageType, Vector3 spawnPosition)
     {
-        return prefabFactorySystem.GetGarbageObject(garbageType, spawnPoint);
+        return prefabFactorySystem.GetGarbageObject(garbageType, spawnPosition);
+    }
+
+    public Coin GetCoin(Vector3 spawnPosition)
+    {
+        return prefabFactorySystem.GetCoin(spawnPosition);
     }
 }

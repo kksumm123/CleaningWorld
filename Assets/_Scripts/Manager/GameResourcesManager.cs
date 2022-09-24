@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,5 +20,10 @@ public class GameResourcesManager : Singleton<GameResourcesManager>
     public Sprite GetIcon(IconType iconType)
     {
         return gameResourcesSystem.GetIcon(iconType);
+    }
+
+    public Coin GetCoinPrefab()
+    {
+        return gameResourcesSystem.GetCoinPrefab();
     }
 }

@@ -27,3 +27,4 @@ MonoBehaviour:
   Platic1Prefab: {fileID: 4524019847672572734, guid: a17b71dd89c20de45a206e78a8cdf4d3, type: 3}
   Platic2Prefab: {fileID: 2693964880413947223, guid: 9f40c18b8658c10498343f11e309e472, type: 3}
   Platic3Prefab: {fileID: 6681466047707285374, guid: ce3bae0c9ccc3b247a1dec77281ff9de, type: 3}
+  coinPrefab: {fileID: 3053427169501247268, guid: f110e2a81ceb78f479019e3e567efb8d, type: 3}

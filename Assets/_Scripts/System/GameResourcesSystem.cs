@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,11 @@ public class GameResourcesSystem
     public GarbageObject GetGarbageObjectPrefab(GarbageDetailType garbageType)
     {
         return prefabResourcesInfoSO.GetGarbageObjectPrefab(garbageType);
+    }
+
+    public Coin GetCoinPrefab()
+    {
+        return prefabResourcesInfoSO.GetCoinPrefab();
     }
 
     public Sprite GetIcon(IconType iconType)

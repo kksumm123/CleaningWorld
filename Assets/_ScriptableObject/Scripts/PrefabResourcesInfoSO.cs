@@ -20,6 +20,7 @@ public class PrefabResourcesInfoSO : ScriptableObject
     [SerializeField] GarbageObject Platic1Prefab;
     [SerializeField] GarbageObject Platic2Prefab;
     [SerializeField] GarbageObject Platic3Prefab;
+    [SerializeField] Coin coinPrefab;
 
     public GarbageObject GetGarbageObjectPrefab(GarbageDetailType garbageType)
     {
@@ -60,4 +61,6 @@ public class PrefabResourcesInfoSO : ScriptableObject
                 return null;
         }
     }
+
+    public Coin GetCoinPrefab() => coinPrefab;
 }
