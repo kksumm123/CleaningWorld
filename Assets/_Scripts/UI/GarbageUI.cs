@@ -6,9 +6,9 @@ using UnityEngine;
 public class GarbageUI : Singleton<GarbageUI>
 {
     [SerializeField] CanvasGroup canvasGroup;
-    [SerializeField] GarbageUIBox baseUIBox;
+    [SerializeField] UIBox baseUIBox;
 
-    Dictionary<GarbageType, GarbageUIBox> garbageUIBoxMap = new Dictionary<GarbageType, GarbageUIBox>();
+    Dictionary<GarbageType, UIBox> garbageUIBoxMap = new Dictionary<GarbageType, UIBox>();
 
     private void Awake()
     {

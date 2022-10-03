@@ -11,6 +11,7 @@ public class Wastebasket : MonoBehaviour
     [SerializeField] Transform garbageArrivedPoint;
     [SerializeField] float addedYValue = 2;
     [SerializeField] float delay = 0.15f;
+    bool isPlayerAttached = false;
 
     void Start()
     {
@@ -25,13 +26,14 @@ public class Wastebasket : MonoBehaviour
 
     void OnPlayerEnter()
     {
+        isPlayerAttached = true;
         StopCo();
         onPlayerEnterCoHandle = StartCoroutine(OnPlayerEnterCo());
     }
 
     void OnPlayerExist()
     {
-        StopCo();
+        isPlayerAttached = false;
         lidController.Close();
     }
 
@@ -50,7 +52,7 @@ public class Wastebasket : MonoBehaviour
                                   .WaitForCompletion();
 
         var isTrue = true;
-        while (isTrue && Player.Instance.IsAbleToPopGarbage(garbageType))
+        while (isTrue && Player.Instance.IsAbleToPopGarbage(garbageType) && isPlayerAttached)
         {
             (bool isContained, GarbageObject garbageObject) = Player.Instance.OnWastebasket(garbageType);
 

@@ -6,6 +6,7 @@ public class Player : Singleton<Player>
 {
     [SerializeField] PlayerMoveSystem playerMoveSystem = new PlayerMoveSystem();
     [SerializeField] PlayerGarbageStackSystem playerGarbageStackSystem = new PlayerGarbageStackSystem();
+    PlayerCoinSystem coinSystem = new PlayerCoinSystem();
 
     private void Start()
     {
@@ -41,5 +42,20 @@ public class Player : Singleton<Player>
         }
 
         return playerGarbageStackSystem.OnWastebasket(garbageType);
+    }
+
+    public void AddCoin(int value)
+    {
+        coinSystem.AddCoin(value);
+    }
+
+    public void SubCoin(int value)
+    {
+        coinSystem.SubCoin(value);
+    }
+
+    public bool IsSubable(int value)
+    {
+        return coinSystem.IsSubable(value);
     }
 }

@@ -6,12 +6,15 @@ using UnityEngine;
 
 public class Coin : RecycleObject
 {
+    int value = 1;
     [SerializeField] float addedYValue = 4;
     [SerializeField] float moveYDuration = 0.5f;
     float fadeOutScaleDuration = 0.05f;
 
     public void FlyToPlayer()
     {
+        Player.Instance.AddCoin(value);
+
         var originalPosition = transform.position;
         var sequence = DOTween.Sequence()
                               .OnComplete(() => Restore());

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GarbageUIBox : MonoBehaviour
+public class UIBox : MonoBehaviour
 {
     [SerializeField] Image iconImage;
     [SerializeField] TextMeshProUGUI amount;
