@@ -54,10 +54,15 @@ public class Wastebasket : MonoBehaviour
         {
             (bool isContained, GarbageObject garbageObject) = Player.Instance.OnWastebasket(garbageType);
 
+            // 쓰레기 날리기
             yield return garbageObject.OnWastebasket(garbageArrivedPoint.position,
                                                      addedYValue,
                                                      delay)
                                       .WaitForCompletion();
+
+            // 코인 지급
+            var newCoin = FactoryManager.Instance.GetCoin(garbageArrivedPoint.position);
+            newCoin.FlyToPlayer();
         }
     }
 }
