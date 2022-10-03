@@ -14,7 +14,7 @@ public class GarbageObject : RecycleObject
 
     public Tween OnWastebasket(Vector3 garbageArrivedPoint, float addedYValue, float delay)
     {
-        if (sequence != null && sequence.IsPlaying())
+        if (sequence != null && sequence.IsActive() && sequence.IsPlaying())
         {
             sequence.Complete();
         }
