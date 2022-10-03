@@ -83,6 +83,8 @@ MonoBehaviour:
     lerpValue: 0.25
   playerGarbageStackSystem:
     pivotCenter: {fileID: 1321616047783180241}
+    upgradeValue: 10
+    maxCount: 20
     garbageGap: 1
     orderCount: 7
 --- !u!195 &5754879426723734362

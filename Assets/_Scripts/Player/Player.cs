@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +28,14 @@ public class Player : Singleton<Player>
     public bool IsAbleToPopGarbage(GarbageType garbageType)
     {
         return playerGarbageStackSystem.IsAbleToPopGarbage(garbageType);
+    }
+
+    public void OnUpgrade(int price)
+    {
+        if (coinSystem.IsSubable(price) == false) return;
+
+        coinSystem.SubCoin(price);
+        playerGarbageStackSystem.OnUpgrade();
     }
 
     public void OnGarbageHeap(GarbageObject garbageObject, float duration)

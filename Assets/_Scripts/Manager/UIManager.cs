@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,5 +18,15 @@ public class UIManager : Singleton<UIManager>
     public void UpdateCoinAmout(int value)
     {
         CoinUI.Instance.UpdateAmount(value);
+    }
+
+    public void ShowUpgradeUI()
+    {
+        UpgradeUI.Instance.Show();
+    }
+
+    public void CloseUpgradeUI()
+    {
+        UpgradeUI.Instance.Close();
     }
 }
