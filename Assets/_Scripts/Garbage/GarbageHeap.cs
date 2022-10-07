@@ -6,21 +6,41 @@ using Random = UnityEngine.Random;
 
 public class GarbageHeap : MonoBehaviour
 {
+    static List<GarbageHeap> garbageHeaps = new List<GarbageHeap>();
+
+    static readonly string BASE_KEY = "GarbageHeap";
+    string REAL_KEY => BASE_KEY + uid;
+
+    [SerializeField] int uid;
+
     int garbageTypesMaxNumber;
     [SerializeField] GarbageHeapPlayerDetector garbageHeapPlayerDetector;
     [SerializeField] GarbageAmountBox garbageAmountBox;
     [SerializeField] float delay = 0.5f;
 
     [SerializeField] Transform inner;
-    [SerializeField] int garbageCount = 100;
+    [SerializeField] int initializeGarbageCount = 100;
+    int garbageCount;
     int originGarbageCount;
     Vector3 originScale;
 
     void Start()
     {
+        garbageHeaps.ForEach(x =>
+        {
+            if (x.uid == uid)
+            {
+                Debug.LogError($"동일한 uid를 가진 개체가 존재합니다", x.transform);
+                Debug.LogError($"동일한 uid를 가진 개체가 존재합니다", transform);
+            }
+        });
+
+        garbageHeaps.Add(this);
+
         WoonyMethods.Assert(this, (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)),
                                   (garbageAmountBox, nameof(garbageAmountBox)),
                                   (inner, nameof(inner)));
+        LoadData();
 
         var garbageTypes = Enum.GetNames(typeof(GarbageDetailType));
         garbageTypesMaxNumber = garbageTypes.Length;
@@ -29,15 +49,23 @@ public class GarbageHeap : MonoBehaviour
         garbageAmountBox.Initialize();
         garbageAmountBox.UpdateAmount(garbageCount);
 
-        originGarbageCount = garbageCount;
+        originGarbageCount = initializeGarbageCount;
         originScale = inner.localScale;
     }
 
-    void SubGarbageCount(int value)
+    private void OnDestroy()
     {
-        value = Math.Abs(value);
-        garbageCount -= value;
-        garbageAmountBox.UpdateAmount(garbageCount);
+        garbageHeaps.Remove(this);
+    }
+
+    void LoadData()
+    {
+        garbageCount = PlayerPrefs.GetInt(REAL_KEY, initializeGarbageCount);
+    }
+
+    void SaveData()
+    {
+        PlayerPrefs.SetInt(REAL_KEY, garbageCount);
     }
 
     void OnPlayerEnter()
@@ -46,17 +74,17 @@ public class GarbageHeap : MonoBehaviour
         getGeneratebageCoHandle = StartCoroutine(GenerateGarbageCo());
     }
 
+    void OnPlayerExit()
+    {
+        StopGenerateGarbageCo();
+    }
+
     void StopGenerateGarbageCo()
     {
         if (getGeneratebageCoHandle != null)
         {
             StopCoroutine(getGeneratebageCoHandle);
         }
-    }
-
-    void OnPlayerExit()
-    {
-        StopGenerateGarbageCo();
     }
 
     Coroutine getGeneratebageCoHandle;
@@ -102,5 +130,13 @@ public class GarbageHeap : MonoBehaviour
             SubGarbageCount(1);
             inner.localScale = garbageCount / (float)originGarbageCount * originScale;
         }
+    }
+
+    void SubGarbageCount(int value)
+    {
+        value = Math.Abs(value);
+        garbageCount -= value;
+        garbageAmountBox.UpdateAmount(garbageCount);
+        SaveData();
     }
 }
