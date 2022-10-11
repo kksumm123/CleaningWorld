@@ -80,8 +80,14 @@ public class PrefabFactorySystem
             GarbageDetailType.Plastic1 => plastic1ObjectPool,
             GarbageDetailType.Plastic2 => plastic2ObjectPool,
             GarbageDetailType.Plastic3 => plastic3ObjectPool,
-            _ => null,
+            _ => ReturnNull(garbageType),
         };
+    }
+
+    private ObjectPoolSystem ReturnNull(GarbageDetailType garbageType)
+    {
+        Debug.LogError($"존재하지 않는 타입 {garbageType}");
+        return null;
     }
 
     public GarbageObject GetGarbageObject(GarbageDetailType garbageType, Vector3 spawnPoint)

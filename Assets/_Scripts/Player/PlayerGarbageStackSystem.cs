@@ -7,6 +7,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerGarbageStackSystem
 {
+    string KEY = "PlayerGarbages";
     Player player;
     GarbageStack<GarbageObject> myGarbages = new GarbageStack<GarbageObject>();
 
@@ -21,7 +22,11 @@ public class PlayerGarbageStackSystem
         this.player = player;
         Debug.Assert(pivotCenter != null, "pivotCenter is null");
 
-        myGarbages.Initialize(GetPosition);
+        myGarbages.Initialize(KEY, GetPosition, pivotCenter);
+        for (int i = 1; i < Enum.GetNames(typeof(GarbageType)).Length; i++)
+        {
+            UIManager.Instance.UpdateGarbageAmount((GarbageType)i, myGarbages.GetCountOfGarbageType((GarbageType)i));
+        }
     }
 
     Vector3 GetPosition(int index)
@@ -38,6 +43,7 @@ public class PlayerGarbageStackSystem
 
     void UpdateCount(GarbageType garbageType)
     {
+        myGarbages.SaveGarbages(KEY);
         UIManager.Instance.UpdateGarbageAmount(garbageType, myGarbages.GetCountOfGarbageType(garbageType));
     }
 
