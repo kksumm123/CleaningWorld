@@ -68,5 +68,14 @@ class GarbageStack<T> where T : GarbageObject
         return containerMap.ContainsKey(garbageType)
                && containerMap[garbageType] > 0;
     }
+
+    public int GetCountOfGarbageType(GarbageType garbageType)
+    {
+        if (containerMap.ContainsKey(garbageType) == false)
+        {
+            containerMap[garbageType] = 0;
+        }
+        return containerMap[garbageType];
+    }
 }
 

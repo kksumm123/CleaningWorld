@@ -7,12 +7,6 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerGarbageStackSystem
 {
-    class GarbageCountInfo
-    {
-        public GarbageType garbageType;
-        public int count;
-    }
-
     Player player;
     GarbageStack<GarbageObject> myGarbages = new GarbageStack<GarbageObject>();
 
@@ -21,8 +15,6 @@ public class PlayerGarbageStackSystem
     [SerializeField] int maxCount = 20;
     [SerializeField] float garbageGap = 1f;
     [SerializeField] int orderCount = 7;
-
-    Dictionary<GarbageType, GarbageCountInfo> garbageCountInfoMap = new Dictionary<GarbageType, GarbageCountInfo>();
 
     public void Initialize(Player player)
     {
@@ -44,40 +36,9 @@ public class PlayerGarbageStackSystem
         maxCount += upgradeValue;
     }
 
-    GarbageCountInfo GetGarbageCountInfo(GarbageType garbageType)
+    void UpdateCount(GarbageType garbageType)
     {
-        if (garbageCountInfoMap.ContainsKey(garbageType) == false)
-        {
-            InitializeGarbageCountMap(garbageType);
-        }
-
-        return garbageCountInfoMap[garbageType];
-
-        void InitializeGarbageCountMap(GarbageType garbageType)
-        {
-            garbageCountInfoMap[garbageType] = new GarbageCountInfo()
-            {
-                garbageType = garbageType,
-                count = 0,
-            };
-        }
-    }
-
-    void UpdateCount(GarbageType garbageType, int changeValue)
-    {
-        var garbageInfo = GetGarbageCountInfo(garbageType);
-        garbageInfo.count += changeValue;
-        UIManager.Instance.UpdateGarbageAmount(garbageType, garbageInfo.count);
-    }
-
-    void IncreaseCount(GarbageType garbageType)
-    {
-        UpdateCount(garbageType, +1);
-    }
-
-    void DecreaseCount(GarbageType garbageType)
-    {
-        UpdateCount(garbageType, -1);
+        UIManager.Instance.UpdateGarbageAmount(garbageType, myGarbages.GetCountOfGarbageType(garbageType));
     }
 
     public bool IsAbleToGetGarbage()
@@ -96,7 +57,7 @@ public class PlayerGarbageStackSystem
         garbageObject.transform.localRotation = Quaternion.identity;
 
         myGarbages.Push(garbageObject, duration);
-        IncreaseCount(garbageType: garbageObject.GarbageType);
+        UpdateCount(garbageType: garbageObject.GarbageType);
     }
 
     public (bool isContained, GarbageObject garbageObject) OnWastebasket(GarbageType garbageType)
@@ -105,7 +66,7 @@ public class PlayerGarbageStackSystem
         if (result.isContained)
         {
             result.garbageObject.transform.parent = null;
-            DecreaseCount(garbageType);
+            UpdateCount(garbageType);
         }
 
         return result;
