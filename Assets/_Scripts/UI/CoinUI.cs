@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CoinUI : Singleton<CoinUI>
 {
-    [SerializeField] CanvasGroup canvasGroup;
-    [SerializeField] UIBox coinUIBox;
+    [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private UIBox coinUIBox;
 
     private void Awake()
     {
@@ -24,15 +24,8 @@ public class CoinUI : Singleton<CoinUI>
 
     private void RefreshUI()
     {
-        bool isAbleToShow = coinUIBox.gameObject.activeSelf;
+        var isAbleToShow = coinUIBox.gameObject.activeSelf;
 
-        if (isAbleToShow)
-        {
-            canvasGroup.alpha = 1;
-        }
-        else
-        {
-            canvasGroup.alpha = 0;
-        }
+        canvasGroup.alpha = isAbleToShow ? 1 : 0;
     }
 }

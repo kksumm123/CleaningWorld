@@ -5,24 +5,24 @@ using UnityEngine;
 
 public class GarbageHeapPlayerDetector : PlayerDetector
 {
-    Action onPlayerEnter;
-    Action onPlayerExit;
+    private Action _onPlayerEnter;
+    private Action _onPlayerExit;
 
     protected override void OnStart() { }
 
     public void Initialize(Action onPlayerEnter, Action onPlayerExit)
     {
-        this.onPlayerEnter = onPlayerEnter;
-        this.onPlayerExit = onPlayerExit;
+        _onPlayerEnter = onPlayerEnter;
+        _onPlayerExit = onPlayerExit;
     }
 
     protected override void _OnTriggerEnter(Collider other)
     {
-        onPlayerEnter();
+        _onPlayerEnter();
     }
 
     protected override void _OnTriggerExit(Collider other)
     {
-        onPlayerExit();
+        _onPlayerExit();
     }
 }

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class WastebasketLidController : MonoBehaviour
 {
-    [SerializeField] Transform lid;
-    [SerializeField] LidOpenCloseInfo lidOpenInfo = new LidOpenCloseInfo(new Vector3(0, 105, -90), 0.2f);
-    [SerializeField] LidOpenCloseInfo lidCloseInfo = new LidOpenCloseInfo(new Vector3(0, 0, -90), 1);
+    [SerializeField] private Transform lid;
+    [SerializeField] private LidOpenCloseInfo lidOpenInfo = new LidOpenCloseInfo(new Vector3(0, 105, -90), 0.2f);
+    [SerializeField] private LidOpenCloseInfo lidCloseInfo = new LidOpenCloseInfo(new Vector3(0, 0, -90), 1);
 
     public void Initialize()
     {

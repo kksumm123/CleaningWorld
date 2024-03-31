@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class UpgradeShop : MonoBehaviour
 {
-    [SerializeField] UpgradeShopPlayerDetector upgradeShopPlayerDetector;
+    [SerializeField] private UpgradeShopPlayerDetector upgradeShopPlayerDetector;
 
-    void Start()
+    private void Start()
     {
         WoonyMethods.Assert(this, (upgradeShopPlayerDetector, nameof(upgradeShopPlayerDetector)));
 
-        upgradeShopPlayerDetector.Initialize(() => UIManager.Instance.ShowUpgradeUI(),
-                                             () => UIManager.Instance.CloseUpgradeUI());
+        upgradeShopPlayerDetector.Initialize(
+            onPlayerEnter: () => UIManager.Instance.ShowUpgradeUI(),
+            onPlayerExit: () => UIManager.Instance.CloseUpgradeUI());
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class PlayerDetector : MonoBehaviour
 {
-    [SerializeField] Collider mainCollider;
+    [SerializeField] private Collider mainCollider;
 
     private void Start()
     {
@@ -17,20 +17,14 @@ public abstract class PlayerDetector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(AllTagAndLayer.Player) == false)
-        {
-            return;
-        }
+        if (!other.CompareTag(AllTagAndLayer.Player)) return;
 
         _OnTriggerEnter(other);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(AllTagAndLayer.Player) == false)
-        {
-            return;
-        }
+        if (!other.CompareTag(AllTagAndLayer.Player)) return;
 
         _OnTriggerExit(other);
     }

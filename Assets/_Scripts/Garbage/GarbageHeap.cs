@@ -6,25 +6,27 @@ using Random = UnityEngine.Random;
 
 public class GarbageHeap : MonoBehaviour
 {
-    static List<GarbageHeap> garbageHeaps = new List<GarbageHeap>();
+    private static List<GarbageHeap> garbageHeaps = new List<GarbageHeap>();
 
-    static readonly string BASE_KEY = "GarbageHeap";
-    string REAL_KEY => BASE_KEY + uid;
+    private static readonly string BASE_KEY = "GarbageHeap";
+    private string REAL_KEY => BASE_KEY + uid;
 
-    [SerializeField] int uid;
+    [SerializeField] private int uid;
 
-    int garbageTypesMaxNumber;
-    [SerializeField] GarbageHeapPlayerDetector garbageHeapPlayerDetector;
-    [SerializeField] GarbageAmountBox garbageAmountBox;
-    [SerializeField] float delay = 0.5f;
+    private int _garbageTypesMaxNumber;
+    [SerializeField] private GarbageHeapPlayerDetector garbageHeapPlayerDetector;
+    [SerializeField] private GarbageAmountBox garbageAmountBox;
+    [SerializeField] private float delay = 0.5f;
 
-    [SerializeField] Transform inner;
-    [SerializeField] int initializeGarbageCount = 100;
-    int garbageCount;
-    int originGarbageCount;
-    Vector3 originScale;
+    [SerializeField] private Transform inner;
+    [SerializeField] private int initializeGarbageCount = 100;
+    private int _garbageCount;
+    private int _originGarbageCount;
+    private Vector3 _originScale;
 
-    void Start()
+    private Coroutine _getGeneratebageCoHandle;
+
+    private void Start()
     {
         garbageHeaps.ForEach(x =>
         {
@@ -37,20 +39,21 @@ public class GarbageHeap : MonoBehaviour
 
         garbageHeaps.Add(this);
 
-        WoonyMethods.Assert(this, (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)),
-                                  (garbageAmountBox, nameof(garbageAmountBox)),
-                                  (inner, nameof(inner)));
+        WoonyMethods.Assert(this,
+            (garbageHeapPlayerDetector, nameof(garbageHeapPlayerDetector)),
+            (garbageAmountBox, nameof(garbageAmountBox)),
+            (inner, nameof(inner)));
         LoadData();
 
         var garbageTypes = Enum.GetNames(typeof(GarbageDetailType));
-        garbageTypesMaxNumber = garbageTypes.Length;
+        _garbageTypesMaxNumber = garbageTypes.Length;
 
         garbageHeapPlayerDetector.Initialize(OnPlayerEnter, OnPlayerExit);
         garbageAmountBox.Initialize();
-        garbageAmountBox.UpdateAmount(garbageCount);
+        garbageAmountBox.UpdateAmount(_garbageCount);
 
-        originGarbageCount = initializeGarbageCount;
-        originScale = inner.localScale;
+        _originGarbageCount = initializeGarbageCount;
+        _originScale = inner.localScale;
     }
 
     private void OnDestroy()
@@ -58,37 +61,36 @@ public class GarbageHeap : MonoBehaviour
         garbageHeaps.Remove(this);
     }
 
-    void LoadData()
+    private void LoadData()
     {
-        garbageCount = PlayerPrefs.GetInt(REAL_KEY, initializeGarbageCount);
+        _garbageCount = PlayerPrefs.GetInt(REAL_KEY, initializeGarbageCount);
     }
 
-    void SaveData()
+    private void SaveData()
     {
-        PlayerPrefs.SetInt(REAL_KEY, garbageCount);
+        PlayerPrefs.SetInt(REAL_KEY, _garbageCount);
     }
 
-    void OnPlayerEnter()
+    private void OnPlayerEnter()
     {
         StopGenerateGarbageCo();
-        getGeneratebageCoHandle = StartCoroutine(GenerateGarbageCo());
+        _getGeneratebageCoHandle = StartCoroutine(GenerateGarbageCo());
     }
 
-    void OnPlayerExit()
+    private void OnPlayerExit()
     {
         StopGenerateGarbageCo();
     }
 
-    void StopGenerateGarbageCo()
+    private void StopGenerateGarbageCo()
     {
-        if (getGeneratebageCoHandle != null)
+        if (_getGeneratebageCoHandle != null)
         {
-            StopCoroutine(getGeneratebageCoHandle);
+            StopCoroutine(_getGeneratebageCoHandle);
         }
     }
 
-    Coroutine getGeneratebageCoHandle;
-    IEnumerator GenerateGarbageCo()
+    private IEnumerator GenerateGarbageCo()
     {
         var isTrue = true;
         while (isTrue)
@@ -98,29 +100,25 @@ public class GarbageHeap : MonoBehaviour
         }
     }
 
-    void OnGarbageHeap()
+    private void OnGarbageHeap()
     {
-        if (Player.Instance.IsAbleToGetGarbage() == false
-            || IsAbleToGenerateGarbage() == false)
-        {
-            return;
-        }
+        if (!IsValid()) return;
 
         Player.Instance.OnGarbageHeap(GenerateGarbage(), delay);
+
+        bool IsValid() => Player.Instance.IsAbleToGetGarbage() && IsAbleToGenerateGarbage();
     }
 
     private bool IsAbleToGenerateGarbage()
     {
-        return garbageCount > 0;
+        return _garbageCount > 0;
     }
 
-    GarbageObject GenerateGarbage()
+    private GarbageObject GenerateGarbage()
     {
-        GarbageDetailType randomeType = (GarbageDetailType)Random.Range(1, garbageTypesMaxNumber);
+        GarbageDetailType randomeType = (GarbageDetailType)Random.Range(1, _garbageTypesMaxNumber);
 
-        var randomGarbage = FactoryManager.Instance
-                                          .GetGarbageObject(randomeType,
-                                                            transform.position);
+        var randomGarbage = FactoryManager.Instance.GetGarbageObject(randomeType, transform.position);
         OnGenerateGarbage();
 
         return randomGarbage;
@@ -128,15 +126,15 @@ public class GarbageHeap : MonoBehaviour
         void OnGenerateGarbage()
         {
             SubGarbageCount(1);
-            inner.localScale = garbageCount / (float)originGarbageCount * originScale;
+            inner.localScale = _garbageCount / (float)_originGarbageCount * _originScale;
         }
     }
 
-    void SubGarbageCount(int value)
+    private void SubGarbageCount(int value)
     {
         value = Math.Abs(value);
-        garbageCount -= value;
-        garbageAmountBox.UpdateAmount(garbageCount);
+        _garbageCount -= value;
+        garbageAmountBox.UpdateAmount(_garbageCount);
         SaveData();
     }
 }

@@ -9,39 +9,36 @@ using Random = UnityEngine.Random;
 
 class GarbageStack<T> where T : GarbageObject
 {
-    readonly List<T> container = new List<T>();
-    StringBuilder stringBuilder;
-    T tempItem;
-    // containerMap은 각 쓰레기별 카운트를 저장하기 위해 사용된 딕셔너리
-    Dictionary<GarbageType, int> containerMap = new Dictionary<GarbageType, int>();
-    Func<int, Vector3> getPosition;
+    private StringBuilder _stringBuilder;
+    private T _tempItem;
+    private List<T> _container = new();
+    // containerMap : value : 각 garbageType count
+    private Dictionary<GarbageType, int> _containerMap = new();
+    private Func<int, Vector3> _getPosition;
 
     public void Initialize(string key, Func<int, Vector3> getPosition, Transform pivotCenter)
     {
-        this.getPosition = getPosition;
+        this._getPosition = getPosition;
         LoadGarbages(key, pivotCenter);
     }
 
     public void LoadGarbages(string key, Transform pivotCenter)
     {
-        if (PlayerPrefs.HasKey(key))
+        if (!PlayerPrefs.HasKey(key)) return;
+
+        var result = PlayerPrefs.GetString(key);
+        for (int i = 0; i < result.Length; i++)
         {
-            var result = PlayerPrefs.GetString(key);
+            var garbageType = (GarbageType)Convert.ToInt32(result[i].ToString());
+            var garbageObject = GenerateGarbage(garbageType);
+            garbageObject.transform.SetParent(pivotCenter);
+            garbageObject.transform.localRotation = Quaternion.identity;
 
-            for (int i = 0; i < result.Length; i++)
-            {
-                var garbageType = (GarbageType)Convert.ToInt32(result[i].ToString());
-                var garbageObject = GenerateGarbage(garbageType);
-                garbageObject.transform.SetParent(pivotCenter);
-                garbageObject.transform.localRotation = Quaternion.identity;
-
-                Push((T)garbageObject,
-                     duration: 0);
-            }
+            Push((T)garbageObject, duration: 0);
         }
     }
 
-    GarbageObject GenerateGarbage(GarbageType garbageType)
+    private GarbageObject GenerateGarbage(GarbageType garbageType)
     {
         GarbageDetailType randomeType = GarbageDetailType.None;
         switch (garbageType)
@@ -63,86 +60,84 @@ class GarbageStack<T> where T : GarbageObject
                 break;
         }
         randomeType += Random.Range(0, 3);
-        return FactoryManager.Instance
-                             .GetGarbageObject(randomeType,
-                                               Vector3.zero);
+        return FactoryManager.Instance.GetGarbageObject(randomeType, Vector3.zero);
     }
 
     public void SaveGarbages(string key)
     {
-        if (stringBuilder == null)
+        if (_stringBuilder == null)
         {
-            stringBuilder = new StringBuilder();
+            _stringBuilder = new StringBuilder();
         }
 
-        stringBuilder.Clear();
-        foreach (var item in container)
+        _stringBuilder.Clear();
+        foreach (var item in _container)
         {
-            stringBuilder.Append((int)item.GarbageType);
+            _stringBuilder.Append((int)item.GarbageType);
         }
 
-        PlayerPrefs.SetString(key, stringBuilder.ToString());
+        PlayerPrefs.SetString(key, _stringBuilder.ToString());
     }
 
-    void UpdateGarbagePosition()
+    private void UpdateGarbagePosition()
     {
-        for (int i = 0; i < container.Count; i++)
+        for (int i = 0; i < _container.Count; i++)
         {
-            container[i].transform.localPosition = getPosition(i);
+            _container[i].transform.localPosition = _getPosition(i);
         }
     }
 
     public int Count()
     {
-        return container.Count();
+        return _container.Count();
     }
 
     public void Push(T garbageObject, float duration)
     {
         UpdateGarbagePosition();
 
-        garbageObject.transform.DOLocalMove(getPosition(container.Count), duration);
+        garbageObject.transform.DOLocalMove(_getPosition(_container.Count), duration);
 
-        container.Add(garbageObject);
+        _container.Add(garbageObject);
 
-        if (containerMap.ContainsKey(garbageObject.GarbageType) == false)
+        if (_containerMap.ContainsKey(garbageObject.GarbageType) == false)
         {
-            containerMap[garbageObject.GarbageType] = 0;
+            _containerMap[garbageObject.GarbageType] = 0;
         }
-        containerMap[garbageObject.GarbageType]++;
+        _containerMap[garbageObject.GarbageType]++;
     }
 
     public (bool isContained, T garbageObject) Pop(GarbageType garbageType)
     {
-        tempItem = container.FirstOrDefault(x => x.GarbageType == garbageType);
+        _tempItem = _container.FirstOrDefault(x => x.GarbageType == garbageType);
 
-        if (tempItem == null || tempItem.GarbageType == GarbageType.None)
+        if (_tempItem == null || _tempItem.GarbageType == GarbageType.None)
         {
             Debug.LogError("존재하지 않음");
-            return (false, null);
+            return (isContained: false, garbageObject: null);
         }
 
-        container.Remove(tempItem);
-        containerMap[tempItem.GarbageType]--;
+        _container.Remove(_tempItem);
+        _containerMap[_tempItem.GarbageType]--;
         //tempItem.transform.SetParent(null);
         UpdateGarbagePosition();
 
-        return (true, tempItem);
+        return (isContained: true, garbageObject: _tempItem);
     }
 
     public bool IsAbleToPopGarbage(GarbageType garbageType)
     {
-        return containerMap.ContainsKey(garbageType)
-               && containerMap[garbageType] > 0;
+        return _containerMap.ContainsKey(garbageType)
+            && _containerMap[garbageType] > 0;
     }
 
     public int GetCountOfGarbageType(GarbageType garbageType)
     {
-        if (containerMap.ContainsKey(garbageType) == false)
+        if (_containerMap.ContainsKey(garbageType) == false)
         {
-            containerMap[garbageType] = 0;
+            _containerMap[garbageType] = 0;
         }
-        return containerMap[garbageType];
+        return _containerMap[garbageType];
     }
 }
 

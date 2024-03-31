@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerCoinSystem
 {
-    static readonly string LOAD_KEY = "CoinAmout";
-    int coin;
+    private static readonly string LOAD_KEY = "CoinAmout";
+    private int _coin;
 
     public void Initialize()
     {
@@ -17,21 +17,21 @@ public class PlayerCoinSystem
     {
         if (PlayerPrefs.HasKey(LOAD_KEY))
         {
-            coin = PlayerPrefs.GetInt(LOAD_KEY, 0);
+            _coin = PlayerPrefs.GetInt(LOAD_KEY, 0);
         }
 
-        UIManager.Instance.UpdateCoinAmout(coin);
+        UIManager.Instance.UpdateCoinAmout(_coin);
     }
 
-    void SaveData()
+    private void SaveData()
     {
-        PlayerPrefs.SetInt(LOAD_KEY, coin);
+        PlayerPrefs.SetInt(LOAD_KEY, _coin);
     }
 
-    void UpdateCoin(int value)
+    private void UpdateCoin(int value)
     {
-        coin += value;
-        UIManager.Instance.UpdateCoinAmout(coin);
+        _coin += value;
+        UIManager.Instance.UpdateCoinAmout(_coin);
         SaveData();
     }
 
@@ -59,6 +59,6 @@ public class PlayerCoinSystem
 
     public bool IsSubable(int value)
     {
-        return coin >= value;
+        return _coin >= value;
     }
 }

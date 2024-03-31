@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 public class UIBox : MonoBehaviour
 {
-    [SerializeField] Image iconImage;
-    [SerializeField] TextMeshProUGUI amount;
+    [SerializeField] private Image iconImage;
+    [SerializeField] private TextMeshProUGUI amount;
 
     public void Initialize(Sprite iconSprite)
     {
-        WoonyMethods.Assert(this, (iconSprite, nameof(iconSprite)),
-                                  (iconImage, nameof(iconImage)),
-                                  (amount, nameof(amount)));
+        WoonyMethods.Assert(this,
+            (iconSprite, nameof(iconSprite)),
+            (iconImage, nameof(iconImage)),
+            (amount, nameof(amount)));
         this.iconImage.sprite = iconSprite;
     }
 
@@ -25,7 +26,7 @@ public class UIBox : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-        else if (gameObject.activeSelf == false)
+        else if (!gameObject.activeSelf)
         {
             gameObject.SetActive(true);
         }

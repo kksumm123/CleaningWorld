@@ -5,36 +5,34 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerMoveSystem
 {
-    Joystick joystick;
-    Player player;
+    private Joystick _joystick;
+    private Player _player;
 
-    [SerializeField] float speed = 5;
-    [SerializeField] float lerpValue = 0.25f;
-    Vector3 direction;
-    Vector3 moveResult;
+    [SerializeField] private float speed = 5;
+    [SerializeField] private float lerpValue = 0.25f;
+    private Vector3 _direction;
+    private Vector3 _moveResult;
 
     public void Initialize(Player player)
     {
-        this.player = player;
-        joystick = UIManager.Instance.Joystick;
+        this._player = player;
+        _joystick = UIManager.Instance.Joystick;
     }
 
     public void Move()
     {
-        if (joystick.IsDrag == false)
+        if (_joystick.IsDrag == false)
         {
             return;
         }
 
-        direction.x = joystick.Horizontal;
-        direction.z = joystick.Vertical;
-        direction.Normalize();
+        _direction.x = _joystick.Horizontal;
+        _direction.z = _joystick.Vertical;
+        _direction.Normalize();
 
-        player.transform.forward = Vector3.Lerp(player.transform.forward,
-                                                direction,
-                                                lerpValue);
+        _player.transform.forward = Vector3.Lerp(_player.transform.forward, _direction, lerpValue);
 
-        moveResult = speed * Time.deltaTime * direction;
-        player.transform.Translate(moveResult, Space.World);
+        _moveResult = speed * Time.deltaTime * _direction;
+        _player.transform.Translate(_moveResult, Space.World);
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class GarbageUI : Singleton<GarbageUI>
 {
-    [SerializeField] CanvasGroup canvasGroup;
-    [SerializeField] UIBox baseUIBox;
+    [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private UIBox baseUIBox;
 
-    Dictionary<GarbageType, UIBox> garbageUIBoxMap = new Dictionary<GarbageType, UIBox>();
+    private Dictionary<GarbageType, UIBox> _garbageUIBoxMap = new();
 
     private void Awake()
     {
@@ -21,33 +21,34 @@ public class GarbageUI : Singleton<GarbageUI>
 
     private void GenerateUIBox(GarbageType garbageType)
     {
-        var iconType = (IconType)Enum.Parse(enumType: typeof(IconType),
-                                                        value: garbageType.ToString(),
-                                                        ignoreCase: false);
+        var iconType = (IconType)Enum.Parse(
+            enumType: typeof(IconType),
+            value: garbageType.ToString(),
+            ignoreCase: false);
         var icon = GameResourcesManager.Instance.GetIcon(iconType);
 
         var newUIBox = Instantiate(baseUIBox, baseUIBox.transform.parent);
         newUIBox.Initialize(icon);
-        garbageUIBoxMap[garbageType] = newUIBox;
+        _garbageUIBoxMap[garbageType] = newUIBox;
     }
 
     public void UpdateAmount(GarbageType garbageType, int value)
     {
-        if (garbageUIBoxMap.ContainsKey(garbageType) == false)
+        if (!_garbageUIBoxMap.ContainsKey(garbageType))
         {
             GenerateUIBox(garbageType);
         }
 
-        garbageUIBoxMap[garbageType].UpdateAmount(value);
+        _garbageUIBoxMap[garbageType].UpdateAmount(value);
         RefreshUI();
     }
 
     private void RefreshUI()
     {
-        bool isAbleToShow = false;
-        int disableGarbageUICount = 0;
+        var isAbleToShow = false;
+        var disableGarbageUICount = 0;
 
-        foreach (var item in garbageUIBoxMap)
+        foreach (var item in _garbageUIBoxMap)
         {
             if (item.Value.gameObject.activeSelf)
             {
@@ -60,18 +61,11 @@ public class GarbageUI : Singleton<GarbageUI>
             }
         }
 
-        if (disableGarbageUICount == garbageUIBoxMap.Count)
+        if (disableGarbageUICount == _garbageUIBoxMap.Count)
         {
             isAbleToShow = false;
         }
 
-        if (isAbleToShow)
-        {
-            canvasGroup.alpha = 1;
-        }
-        else
-        {
-            canvasGroup.alpha = 0;
-        }
+        canvasGroup.alpha = isAbleToShow ? 1 : 0;
     }
 }

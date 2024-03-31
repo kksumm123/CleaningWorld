@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
-    [SerializeField] PlayerMoveSystem playerMoveSystem = new PlayerMoveSystem();
-    [SerializeField] PlayerGarbageStackSystem playerGarbageStackSystem = new PlayerGarbageStackSystem();
-    PlayerCoinSystem coinSystem = new PlayerCoinSystem();
+    [SerializeField] private PlayerMoveSystem playerMoveSystem = new();
+    [SerializeField] private PlayerGarbageStackSystem playerGarbageStackSystem = new();
+    private PlayerCoinSystem _coinSystem = new();
 
     private void Start()
     {
         playerMoveSystem.Initialize(this);
         playerGarbageStackSystem.Initialize(this);
-        coinSystem.Initialize();
+        _coinSystem.Initialize();
     }
 
     private void FixedUpdate()
@@ -33,9 +33,9 @@ public class Player : Singleton<Player>
 
     public void OnUpgrade(int price)
     {
-        if (coinSystem.IsSubable(price) == false) return;
+        if (!_coinSystem.IsSubable(price)) return;
 
-        coinSystem.SubCoin(price);
+        _coinSystem.SubCoin(price);
         playerGarbageStackSystem.OnUpgrade();
     }
 
@@ -48,7 +48,7 @@ public class Player : Singleton<Player>
     {
         if (playerGarbageStackSystem.IsAbleToPopGarbage(garbageType) == false)
         {
-            return (false, null);
+            return (isContained: false, garbageObject: null);
         }
 
         return playerGarbageStackSystem.OnWastebasket(garbageType);
@@ -56,16 +56,16 @@ public class Player : Singleton<Player>
 
     public void AddCoin(int value)
     {
-        coinSystem.AddCoin(value);
+        _coinSystem.AddCoin(value);
     }
 
     public void SubCoin(int value)
     {
-        coinSystem.SubCoin(value);
+        _coinSystem.SubCoin(value);
     }
 
     public bool IsSubable(int value)
     {
-        return coinSystem.IsSubable(value);
+        return _coinSystem.IsSubable(value);
     }
 }

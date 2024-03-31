@@ -5,15 +5,15 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class BillboardObject : MonoBehaviour
 {
-    Transform mainCamera;
+    private Transform _mainCamera;
 
-    void Start()
+    private void Start()
     {
-        mainCamera = Camera.main.transform;
+        _mainCamera = Camera.main.transform;
     }
 
-    void Update()
+    private void Update()
     {
-        transform.rotation = mainCamera.rotation;
+        transform.rotation = _mainCamera.rotation;
     }
 }

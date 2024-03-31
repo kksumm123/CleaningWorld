@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    string mainIslandSceneName = "MainIsland";
+    private readonly string mainIslandSceneName = "MainIsland";
 
     private void Awake()
     {

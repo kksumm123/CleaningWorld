@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class RecycleObject : MonoBehaviour
 {
-    Action<RecycleObject> restore;
+    protected Action<RecycleObject> restore;
 
     public void InitializedByObjectPoolSystem(Action<RecycleObject> restore)
     {

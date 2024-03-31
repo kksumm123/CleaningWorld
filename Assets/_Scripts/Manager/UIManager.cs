@@ -6,7 +6,7 @@ using UnityEngine;
 public class UIManager : Singleton<UIManager>
 {
     public Joystick Joystick => joystick;
-    [SerializeField] Joystick joystick;
+    [SerializeField] private Joystick joystick;
 
     public void Initialize() { }
 

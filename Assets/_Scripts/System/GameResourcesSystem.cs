@@ -5,28 +5,28 @@ using UnityEngine;
 
 public class GameResourcesSystem
 {
-    PrefabResourcesInfoSO prefabResourcesInfoSO;
-    ImageResourcesInfoSO imageResourcesInfoSO;
-    //PrefabResourcesInfoSO particleResourcesInfoSO;
+    private PrefabResourcesInfoSO _prefabResourcesInfoSO;
+    private ImageResourcesInfoSO _imageResourcesInfoSO;
+    //private PrefabResourcesInfoSO particleResourcesInfoSO;
 
     public void Initialize()
     {
-        prefabResourcesInfoSO = Resources.Load<PrefabResourcesInfoSO>(nameof(PrefabResourcesInfoSO));
-        imageResourcesInfoSO = Resources.Load<ImageResourcesInfoSO>(nameof(ImageResourcesInfoSO));
+        _prefabResourcesInfoSO = Resources.Load<PrefabResourcesInfoSO>(nameof(PrefabResourcesInfoSO));
+        _imageResourcesInfoSO = Resources.Load<ImageResourcesInfoSO>(nameof(ImageResourcesInfoSO));
     }
 
     public GarbageObject GetGarbageObjectPrefab(GarbageDetailType garbageType)
     {
-        return prefabResourcesInfoSO.GetGarbageObjectPrefab(garbageType);
+        return _prefabResourcesInfoSO.GetGarbageObjectPrefab(garbageType);
     }
 
     public Coin GetCoinPrefab()
     {
-        return prefabResourcesInfoSO.GetCoinPrefab();
+        return _prefabResourcesInfoSO.GetCoinPrefab();
     }
 
     public Sprite GetIcon(IconType iconType)
     {
-        return imageResourcesInfoSO.GetIcon(iconType);
+        return _imageResourcesInfoSO.GetIcon(iconType);
     }
 }

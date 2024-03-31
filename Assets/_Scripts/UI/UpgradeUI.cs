@@ -5,28 +5,29 @@ using UnityEngine.UI;
 
 public class UpgradeUI : Singleton<UpgradeUI>
 {
-    [SerializeField] Button bgButton;
-    [SerializeField] Button upgradeButton;
-    [SerializeField] Button closeButton;
-    int price = 10;
+    [SerializeField] private Button bgButton;
+    [SerializeField] private Button upgradeButton;
+    [SerializeField] private Button closeButton;
+    private int _price = 10;
 
     private void Awake()
     {
-        WoonyMethods.Assert(this, (bgButton, nameof(bgButton)),
-                                  (upgradeButton, nameof(upgradeButton)),
-                                  (closeButton, nameof(closeButton)));
+        WoonyMethods.Assert(this,
+            (bgButton, nameof(bgButton)),
+            (upgradeButton, nameof(upgradeButton)),
+            (closeButton, nameof(closeButton)));
 
         upgradeButton.onClick.AddListener(() => OnClickUpgradeButton());
         closeButton.onClick.AddListener(() => OnClickCloseButton());
         bgButton.onClick.AddListener(OnClickCloseButton);
     }
 
-    void OnClickUpgradeButton()
+    private void OnClickUpgradeButton()
     {
-        Player.Instance.OnUpgrade(price);
+        Player.Instance.OnUpgrade(_price);
     }
 
-    void OnClickCloseButton()
+    private void OnClickCloseButton()
     {
         Close();
     }

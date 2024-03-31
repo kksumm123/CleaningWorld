@@ -5,39 +5,43 @@ using UnityEngine;
 
 public class Wastebasket : MonoBehaviour
 {
-    [SerializeField] GarbageType garbageType;
-    [SerializeField] WastebasketPlayerDetector wastebasketPlayerDetector;
-    [SerializeField] WastebasketLidController lidController;
-    [SerializeField] Transform garbageArrivedPoint;
-    [SerializeField] float addedYValue = 2;
-    [SerializeField] float delay = 0.15f;
-    bool isPlayerAttached = false;
+    [SerializeField] private GarbageType garbageType;
+    [SerializeField] private WastebasketPlayerDetector wastebasketPlayerDetector;
+    [SerializeField] private WastebasketLidController lidController;
+    [SerializeField] private Transform garbageArrivedPoint;
+    [SerializeField] private float addedYValue = 2;
+    [SerializeField] private float delay = 0.15f;
 
-    void Start()
+    private bool _isPlayerAttached = false;
+
+    private Coroutine onPlayerEnterCoHandle;
+
+    private void Start()
     {
-        WoonyMethods.Assert(this, (wastebasketPlayerDetector, nameof(wastebasketPlayerDetector)),
-                                  (lidController, nameof(lidController)),
-                                  (garbageArrivedPoint, nameof(garbageArrivedPoint)));
+        WoonyMethods.Assert(this,
+            (wastebasketPlayerDetector, nameof(wastebasketPlayerDetector)),
+            (lidController, nameof(lidController)),
+            (garbageArrivedPoint, nameof(garbageArrivedPoint)));
         Debug.Assert(garbageType != GarbageType.None, "타입 설정이 필요함", transform);
 
         wastebasketPlayerDetector.Initialize(OnPlayerEnter, OnPlayerExist);
         lidController.Initialize();
     }
 
-    void OnPlayerEnter()
+    private void OnPlayerEnter()
     {
-        isPlayerAttached = true;
+        _isPlayerAttached = true;
         StopCo();
         onPlayerEnterCoHandle = StartCoroutine(OnPlayerEnterCo());
     }
 
-    void OnPlayerExist()
+    private void OnPlayerExist()
     {
-        isPlayerAttached = false;
+        _isPlayerAttached = false;
         lidController.Close();
     }
 
-    void StopCo()
+    private void StopCo()
     {
         if (onPlayerEnterCoHandle != null)
         {
@@ -45,22 +49,18 @@ public class Wastebasket : MonoBehaviour
         }
     }
 
-    Coroutine onPlayerEnterCoHandle;
-    IEnumerator OnPlayerEnterCo()
+    private IEnumerator OnPlayerEnterCo()
     {
-        yield return lidController.Open()
-                                  .WaitForCompletion();
+        yield return lidController.Open().WaitForCompletion();
 
         var isTrue = true;
-        while (isTrue && Player.Instance.IsAbleToPopGarbage(garbageType) && isPlayerAttached)
+        while (isTrue && Player.Instance.IsAbleToPopGarbage(garbageType) && _isPlayerAttached)
         {
             (bool isContained, GarbageObject garbageObject) = Player.Instance.OnWastebasket(garbageType);
 
             // 쓰레기 날리기
-            yield return garbageObject.OnWastebasket(garbageArrivedPoint.position,
-                                                     addedYValue,
-                                                     delay)
-                                      .WaitForCompletion();
+            var onWastebasketHandle = garbageObject.OnWastebasket(garbageArrivedPoint.position, addedYValue, delay);
+            yield return onWastebasketHandle.WaitForCompletion();
 
             // 코인 지급
             var newCoin = FactoryManager.Instance.GetCoin(garbageArrivedPoint.position);

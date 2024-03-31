@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class GarbageAmountBox : MonoBehaviour
 {
-    [SerializeField] CanvasGroup canvasGroup;
-    [SerializeField] TextMeshProUGUI count;
+    [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private TextMeshProUGUI count;
 
     public void Initialize()
     {
@@ -25,7 +25,7 @@ public class GarbageAmountBox : MonoBehaviour
         canvasGroup.alpha = 0;
     }
 
-    void OnUpdateAmount(int amount)
+    private void OnUpdateAmount(int amount)
     {
         if (amount <= 0)
         {

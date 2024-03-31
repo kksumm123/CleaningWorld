@@ -5,25 +5,25 @@ using UnityEngine;
 
 public class GameResourcesManager : Singleton<GameResourcesManager>
 {
-    GameResourcesSystem gameResourcesSystem = new GameResourcesSystem();
+    private GameResourcesSystem _gameResourcesSystem = new();
 
     public void Initialize()
     {
-        gameResourcesSystem.Initialize();
+        _gameResourcesSystem.Initialize();
     }
 
     public GarbageObject GetGarbageObjectPrefab(GarbageDetailType garbageType)
     {
-        return gameResourcesSystem.GetGarbageObjectPrefab(garbageType);
+        return _gameResourcesSystem.GetGarbageObjectPrefab(garbageType);
     }
 
     public Sprite GetIcon(IconType iconType)
     {
-        return gameResourcesSystem.GetIcon(iconType);
+        return _gameResourcesSystem.GetIcon(iconType);
     }
 
     public Coin GetCoinPrefab()
     {
-        return gameResourcesSystem.GetCoinPrefab();
+        return _gameResourcesSystem.GetCoinPrefab();
     }
 }

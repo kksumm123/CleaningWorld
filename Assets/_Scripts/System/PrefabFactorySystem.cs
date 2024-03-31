@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class PrefabFactorySystem
 {
-    Transform factoryManager;
-    GarbageObject tempGarbageObject;
-    Coin tempCoin;
+    private Transform factoryManager;
+    private GarbageObject tempGarbageObject;
+    private Coin tempCoin;
 
-    ObjectPoolSystem can1ObjectPool;
-    ObjectPoolSystem can2ObjectPool;
-    ObjectPoolSystem can3ObjectPool;
-    ObjectPoolSystem food1ObjectPool;
-    ObjectPoolSystem food2ObjectPool;
-    ObjectPoolSystem food3ObjectPool;
-    ObjectPoolSystem glass1ObjectPool;
-    ObjectPoolSystem glass2ObjectPool;
-    ObjectPoolSystem glass3ObjectPool;
-    ObjectPoolSystem paper1ObjectPool;
-    ObjectPoolSystem paper2ObjectPool;
-    ObjectPoolSystem paper3ObjectPool;
-    ObjectPoolSystem plastic1ObjectPool;
-    ObjectPoolSystem plastic2ObjectPool;
-    ObjectPoolSystem plastic3ObjectPool;
-    ObjectPoolSystem coinObjectPool;
+    private ObjectPoolSystem can1ObjectPool;
+    private ObjectPoolSystem can2ObjectPool;
+    private ObjectPoolSystem can3ObjectPool;
+    private ObjectPoolSystem food1ObjectPool;
+    private ObjectPoolSystem food2ObjectPool;
+    private ObjectPoolSystem food3ObjectPool;
+    private ObjectPoolSystem glass1ObjectPool;
+    private ObjectPoolSystem glass2ObjectPool;
+    private ObjectPoolSystem glass3ObjectPool;
+    private ObjectPoolSystem paper1ObjectPool;
+    private ObjectPoolSystem paper2ObjectPool;
+    private ObjectPoolSystem paper3ObjectPool;
+    private ObjectPoolSystem plastic1ObjectPool;
+    private ObjectPoolSystem plastic2ObjectPool;
+    private ObjectPoolSystem plastic3ObjectPool;
+    private ObjectPoolSystem coinObjectPool;
 
     public void Initialize(Transform factoryManager)
     {
@@ -44,24 +44,26 @@ public class PrefabFactorySystem
         InitializeGarbageObjectPool(ref plastic1ObjectPool, GarbageDetailType.Plastic1);
         InitializeGarbageObjectPool(ref plastic2ObjectPool, GarbageDetailType.Plastic2);
         InitializeGarbageObjectPool(ref plastic3ObjectPool, GarbageDetailType.Plastic3);
-        coinObjectPool = new ObjectPoolSystem(recycleObjectPrefab: GameResourcesManager.Instance.GetCoinPrefab(),
-                                              defaultPoolSize: 1,
-                                              parent: factoryManager);
+        coinObjectPool = new ObjectPoolSystem(
+            recycleObjectPrefab: GameResourcesManager.Instance.GetCoinPrefab(),
+            defaultPoolSize: 1,
+            parent: factoryManager);
     }
 
-    void InitializeGarbageObjectPool(ref ObjectPoolSystem objectPool, GarbageDetailType garbageType)
+    private void InitializeGarbageObjectPool(ref ObjectPoolSystem objectPool, GarbageDetailType garbageType)
     {
-        objectPool = new ObjectPoolSystem(GetGarbageObjectPrefab(garbageType),
-                                          defaultPoolSize: 1,
-                                          parent: factoryManager);
+        objectPool = new ObjectPoolSystem(
+            GetGarbageObjectPrefab(garbageType),
+            defaultPoolSize: 1,
+            parent: factoryManager);
     }
 
-    GarbageObject GetGarbageObjectPrefab(GarbageDetailType garbageType)
+    private GarbageObject GetGarbageObjectPrefab(GarbageDetailType garbageType)
     {
         return GameResourcesManager.Instance.GetGarbageObjectPrefab(garbageType);
     }
 
-    ObjectPoolSystem GetGarbageObjectPoolSystem(GarbageDetailType garbageType)
+    private ObjectPoolSystem GetGarbageObjectPoolSystem(GarbageDetailType garbageType)
     {
         return garbageType switch
         {

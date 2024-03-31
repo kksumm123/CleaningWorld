@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public static class SceneLoadSystem
 {
-    static bool isAbleToLoadScene = true;
+    private static bool IsAbleToLoadScene = true;
 
     private static void OnLoadedScene(Scene scene, LoadSceneMode loadSceneMode)
     {
@@ -17,17 +17,17 @@ public static class SceneLoadSystem
         SceneManager.SetActiveScene(scene);
 
         // 로드가 완료 되면 할 행동
-        isAbleToLoadScene = true;
+        IsAbleToLoadScene = true;
     }
 
     private static IEnumerator AsynLoadScene(string sceneName, LoadSceneMode loadSceneMode)
     {
-        if (isAbleToLoadScene == false)
+        if (IsAbleToLoadScene == false)
         {
             yield break;
         }
 
-        isAbleToLoadScene = false;
+        IsAbleToLoadScene = false;
 
         SceneManager.sceneLoaded += OnLoadedScene;
         var process = SceneManager.LoadSceneAsync(sceneName, loadSceneMode);
