@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,15 +8,11 @@ public class GameManager : Singleton<GameManager>
 {
     private readonly string mainIslandSceneName = "MainIsland";
 
-    private void Awake()
+    private async void Start()
     {
         GameResourcesManager.Instance.Initialize();
-        FactoryManager.Instance.Initialize();
+        await FactoryManager.Instance.Initialize();
         UIManager.Instance.Initialize();
-    }
-
-    private void Start()
-    {
         LoadScene(mainIslandSceneName, LoadSceneMode.Additive);
     }
 

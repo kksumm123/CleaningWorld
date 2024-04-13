@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Garbage
+  m_EditorClassIdentifier: 
+  m_GroupName: Garbage
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 362119dc79f10cc46ae13532b1a8131b
+  m_SerializeEntries:
+  - m_GUID: cebd1c5db8fda4d4292ea4bb89a68bcd
+    m_Address: Can1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: 9824b6ddf3f0faf4ca4587d1e1571bcb
+    m_Address: Can2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: ae0150f933d7ff14a91d4ed5f3557e66
+    m_Address: Can3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: bd5ce47c4357f0c44a77fd2436dcf29a
+    m_Address: Food1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: 0c7382fb69f969b4bbea4f0a8751c14d
+    m_Address: Food2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: 744073cc429b6d245a86624fee4eb4d7
+    m_Address: Food3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: 07006b94a76e9f94fbe44ab1c9503670
+    m_Address: Glass1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: e526283c3bae31c469cb7239086edde5
+    m_Address: Glass2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: 8a25b7c2b4e66384daec151622433a5b
+    m_Address: Glass3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: 551afee5de54bc648a7c0ae299c775e3
+    m_Address: Paper1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: b96ec5cddf2b68942b3c92f180de0303
+    m_Address: Paper2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: 5978fc0043fa25b4899a589379604372
+    m_Address: Paper3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: a17b71dd89c20de45a206e78a8cdf4d3
+    m_Address: Plastic1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: 9f40c18b8658c10498343f11e309e472
+    m_Address: Plastic2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  - m_GUID: ce3bae0c9ccc3b247a1dec77281ff9de
+    m_Address: Plastic3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Garbage
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 4f726558e7df50b4ead501abc9dd3cfa, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 404798937c8c7af4fad8bcd3d62ba495, type: 2}
+    - {fileID: 11400000, guid: 9dafcc021f30d0247ab465825efb5e78, type: 2}
