@@ -21,11 +21,7 @@ public class GarbageUI : Singleton<GarbageUI>
 
     private void GenerateUIBox(GarbageType garbageType)
     {
-        var iconType = (IconType)Enum.Parse(
-            enumType: typeof(IconType),
-            value: garbageType.ToString(),
-            ignoreCase: false);
-        var icon = GameResourcesManager.Instance.GetIcon(iconType);
+        var icon = GameResourcesManager.imageResources.GetImage(garbageType);
 
         var newUIBox = Instantiate(baseUIBox, baseUIBox.transform.parent);
         newUIBox.Initialize(icon);

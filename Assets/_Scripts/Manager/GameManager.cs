@@ -10,7 +10,7 @@ public class GameManager : Singleton<GameManager>
 
     private async void Start()
     {
-        GameResourcesManager.Instance.Initialize();
+        await GameResourcesManager.Instance.Initialize();
         await FactoryManager.Instance.Initialize();
         UIManager.Instance.Initialize();
         LoadScene(mainIslandSceneName, LoadSceneMode.Additive);
